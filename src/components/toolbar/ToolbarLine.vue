@@ -33,12 +33,12 @@ onMounted(async () => {
 </script>
 
 <template>
-  <a-tooltip content="文本">
+  <a-tooltip content="直线">
     <div
       :class="selected ? 'text-primary op100!' : ''"
-      i-ri-text cursor-pointer text-lg op50 hover:op75 :draggable="true"
-      @dragstart="onDrag($event, 'text')"
-      @click="onClick($event, 'text')"
+      i-tabler-slash cursor-pointer text-lg op50 hover:op75 :draggable="true"
+      @dragstart="onDrag($event, 'line')"
+      @click="onClick($event, 'line')"
     />
   </a-tooltip>
 </template>

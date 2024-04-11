@@ -9,6 +9,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     AButton: typeof import('@arco-design/web-vue')['Button']
     ADivider: typeof import('@arco-design/web-vue')['Divider']
+    ADoption: typeof import('@arco-design/web-vue')['Doption']
+    ADropdown: typeof import('@arco-design/web-vue')['Dropdown']
     ATooltip: typeof import('@arco-design/web-vue')['Tooltip']
     Footer: typeof import('./components/Footer.vue')['default']
     Graphics: typeof import('./components/Graphics.vue')['default']
@@ -21,8 +23,19 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Toolbar: typeof import('./components/toolbar/Toolbar.vue')['default']
+    ToolbarDrawLine: typeof import('./components/toolbar/ToolbarDrawLine.vue')['default']
+    ToolbarFromArrow: typeof import('./components/toolbar/ToolbarFromArrow.vue')['default']
     ToolbarItem: typeof import('./components/toolbar/ToolbarItem.vue')['default']
+    ToolbarLine: typeof import('./components/toolbar/ToolbarLine.vue')['default']
+    ToolbarLineType: typeof import('./components/toolbar/ToolbarLineType.vue')['default']
+    ToolbarMagnifier: typeof import('./components/toolbar/ToolbarMagnifier.vue')['default']
+    ToolbarMiniMap: typeof import('./components/toolbar/ToolbarMiniMap.vue')['default']
+    ToolbarPen: typeof import('./components/toolbar/ToolbarPen.vue')['default']
+    ToolbarPencil: typeof import('./components/toolbar/ToolbarPencil.vue')['default']
+    ToolbarRedo: typeof import('./components/toolbar/ToolbarRedo.vue')['default']
     ToolbarText: typeof import('./components/toolbar/ToolbarText.vue')['default']
+    ToolbarToArrow: typeof import('./components/toolbar/ToolbarToArrow.vue')['default']
+    ToolbarUndo: typeof import('./components/toolbar/ToolbarUndo.vue')['default']
     View: typeof import('./components/View.vue')['default']
   }
 }

@@ -1,22 +1,37 @@
 <script setup lang="ts">
-function undo() {
-  meta2d.undo()
-}
-
-function redo() {
-  meta2d.redo()
-}
+import ToolbarText from './ToolbarText.vue'
 </script>
 
 <template>
   <div flex items-center justify-center gap-3>
-    <a-tooltip content="撤销">
-      <div i-ion-ios-undo cursor-pointer text-lg op50 hover:op75 @click="undo" />
-    </a-tooltip>
-    <a-tooltip content="重做">
-      <div i-ion-ios-redo cursor-pointer text-lg op50 hover:op75 @click="redo" />
-    </a-tooltip>
+    <ToolbarUndo />
+
+    <ToolbarRedo />
 
     <a-divider direction="vertical" />
+
+    <ToolbarText />
+
+    <ToolbarPen />
+
+    <ToolbarPencil />
+
+    <ToolbarLine />
+
+    <ToolbarDrawLine />
+
+    <a-divider direction="vertical" />
+
+    <ToolbarLineType />
+
+    <ToolbarFromArrow />
+
+    <ToolbarToArrow />
+
+    <a-divider direction="vertical" />
+
+    <ToolbarMiniMap />
+
+    <ToolbarMagnifier />
   </div>
 </template>

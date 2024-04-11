@@ -1,5 +1,8 @@
 <script setup lang="ts">
 createPrimaryColor('purple')
+
+const isViewMounted = useMounted()
+provide('isViewMounted', isViewMounted)
 </script>
 
 <template>
@@ -13,7 +16,7 @@ createPrimaryColor('purple')
         </a-button>
       </div>
       <div col-span-4 border-x="1 solid" border-base>
-        2
+        <View />
       </div>
       <div col-span-1>
         3

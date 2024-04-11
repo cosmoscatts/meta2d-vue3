@@ -12,13 +12,17 @@ declare global {
   const $ref: typeof import('vue/macros')['$ref']
   const $shallowRef: typeof import('vue/macros')['$shallowRef']
   const $toRef: typeof import('vue/macros')['$toRef']
+  const ANotification: typeof import('./composables/arco')['ANotification']
   const EffectScope: typeof import('vue')['EffectScope']
+  const Message: typeof import('./composables/arco')['Message']
+  const Modal: typeof import('./composables/arco')['Modal']
   const SelectionMode: typeof import('./composables/meta2d/selection')['SelectionMode']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const addMeta2dShape: typeof import('./composables/meta2d/add-shape')['addMeta2dShape']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
   const bindMeta2dActive: typeof import('./composables/meta2d/active')['bindMeta2dActive']
+  const checkImageBeforeUpload: typeof import('./composables/file')['checkImageBeforeUpload']
   const colors: typeof import('./composables/theme')['colors']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
@@ -52,6 +56,7 @@ declare global {
   const getActivePinia: typeof import('pinia')['getActivePinia']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
+  const getFileBase64: typeof import('./composables/file')['getFileBase64']
   const getFormArrowInfo: typeof import('./composables/meta2d/arrow')['getFormArrowInfo']
   const getLineTypeInfo: typeof import('./composables/meta2d/line')['getLineTypeInfo']
   const getRandomBool: typeof import('./composables/random')['getRandomBool']
@@ -70,6 +75,7 @@ declare global {
   const isReactive: typeof import('vue')['isReactive']
   const isReadonly: typeof import('vue')['isReadonly']
   const isRef: typeof import('vue')['isRef']
+  const listenDarkModeChange: typeof import('./composables/meta2d/color-mode')['listenDarkModeChange']
   const loadMeta2dData: typeof import('./composables/meta2d/load')['loadMeta2dData']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const mapActions: typeof import('pinia')['mapActions']
@@ -348,12 +354,16 @@ import { UnwrapRef } from 'vue'
 declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
+    readonly ANotification: UnwrapRef<typeof import('./composables/arco')['ANotification']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly Message: UnwrapRef<typeof import('./composables/arco')['Message']>
+    readonly Modal: UnwrapRef<typeof import('./composables/arco')['Modal']>
     readonly SelectionMode: UnwrapRef<typeof import('./composables/meta2d/selection')['SelectionMode']>
     readonly addMeta2dShape: UnwrapRef<typeof import('./composables/meta2d/add-shape')['addMeta2dShape']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly bindMeta2dActive: UnwrapRef<typeof import('./composables/meta2d/active')['bindMeta2dActive']>
+    readonly checkImageBeforeUpload: UnwrapRef<typeof import('./composables/file')['checkImageBeforeUpload']>
     readonly colors: UnwrapRef<typeof import('./composables/theme')['colors']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
@@ -384,6 +394,7 @@ declare module 'vue' {
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
+    readonly getFileBase64: UnwrapRef<typeof import('./composables/file')['getFileBase64']>
     readonly getFormArrowInfo: UnwrapRef<typeof import('./composables/meta2d/arrow')['getFormArrowInfo']>
     readonly getLineTypeInfo: UnwrapRef<typeof import('./composables/meta2d/line')['getLineTypeInfo']>
     readonly getRandomBool: UnwrapRef<typeof import('./composables/random')['getRandomBool']>
@@ -401,6 +412,7 @@ declare module 'vue' {
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
+    readonly listenDarkModeChange: UnwrapRef<typeof import('./composables/meta2d/color-mode')['listenDarkModeChange']>
     readonly loadMeta2dData: UnwrapRef<typeof import('./composables/meta2d/load')['loadMeta2dData']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
@@ -648,12 +660,16 @@ declare module 'vue' {
 declare module '@vue/runtime-core' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
+    readonly ANotification: UnwrapRef<typeof import('./composables/arco')['ANotification']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly Message: UnwrapRef<typeof import('./composables/arco')['Message']>
+    readonly Modal: UnwrapRef<typeof import('./composables/arco')['Modal']>
     readonly SelectionMode: UnwrapRef<typeof import('./composables/meta2d/selection')['SelectionMode']>
     readonly addMeta2dShape: UnwrapRef<typeof import('./composables/meta2d/add-shape')['addMeta2dShape']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly bindMeta2dActive: UnwrapRef<typeof import('./composables/meta2d/active')['bindMeta2dActive']>
+    readonly checkImageBeforeUpload: UnwrapRef<typeof import('./composables/file')['checkImageBeforeUpload']>
     readonly colors: UnwrapRef<typeof import('./composables/theme')['colors']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
@@ -684,6 +700,7 @@ declare module '@vue/runtime-core' {
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
+    readonly getFileBase64: UnwrapRef<typeof import('./composables/file')['getFileBase64']>
     readonly getFormArrowInfo: UnwrapRef<typeof import('./composables/meta2d/arrow')['getFormArrowInfo']>
     readonly getLineTypeInfo: UnwrapRef<typeof import('./composables/meta2d/line')['getLineTypeInfo']>
     readonly getRandomBool: UnwrapRef<typeof import('./composables/random')['getRandomBool']>
@@ -701,6 +718,7 @@ declare module '@vue/runtime-core' {
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
+    readonly listenDarkModeChange: UnwrapRef<typeof import('./composables/meta2d/color-mode')['listenDarkModeChange']>
     readonly loadMeta2dData: UnwrapRef<typeof import('./composables/meta2d/load')['loadMeta2dData']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>

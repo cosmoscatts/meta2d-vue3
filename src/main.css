@@ -13,3 +13,18 @@ html.dark {
   color: white;
   color-scheme: dark;
 }
+
+
+.meta2d-map {
+  border: 1px solid #aaa3 !important;
+  background: #FBFBFF !important;
+}
+
+.meta2d-map div {
+  border: 1px solid #722ED1 !important;
+}
+
+
+html.dark .meta2d-map {
+  background: #182033 !important;
+}

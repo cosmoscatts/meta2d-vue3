@@ -1,9 +1,22 @@
-export const defaultGridColor = '#E5E6EB'
+export const defaultGridColor = '#aaa3'
+export enum defaultRuleColorMap {
+  DARK = '#C5C5C5',
+  LIGHT = '#4E5969',
+}
+export enum defaultPenColorMap {
+  DARK = '#F6F6F6',
+  LIGHT = '#1D2129',
+}
+
+export const getDefaultRuleColor = () => isDark.value ? defaultRuleColorMap.DARK : defaultRuleColorMap.LIGHT
+export const getDefaultPenColor = () => isDark.value ? defaultPenColorMap.DARK : defaultPenColorMap.LIGHT
 
 export const defaultOptions = {
-  rule: true, // 是否开启标尺
-  disableScale: true,
+  grid: true,
   gridColor: defaultGridColor,
-  grid: true, // 背景网格,
-  gridSize: 10,
+  gridSize: 15,
+  rule: true,
+  ruleColor: getDefaultRuleColor(),
+  color: getDefaultPenColor(),
+  disableScale: true,
 }
