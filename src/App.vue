@@ -11,9 +11,7 @@ provide('isViewMounted', isViewMounted)
 
     <div h="[calc(100vh-80px)]" grid="~ cols-6">
       <div col-span-1>
-        <a-button type="primary">
-          Primary
-        </a-button>
+        <SideBar />
       </div>
       <ContextMenu>
         <div col-span-4 border-x="1 solid" border-base>

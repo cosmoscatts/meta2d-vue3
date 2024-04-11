@@ -46,6 +46,7 @@ declare global {
   const customRef: typeof import('vue')['customRef']
   const debouncedRef: typeof import('@vueuse/core')['debouncedRef']
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
+  const defaultGraphicsData: typeof import('./composables/meta2d/graphics')['defaultGraphicsData']
   const defaultThemeColors: typeof import('./composables/theme')['defaultThemeColors']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
@@ -64,6 +65,7 @@ declare global {
   const getRandomStr: typeof import('./composables/random')['getRandomStr']
   const getSignalTypeValue: typeof import('./composables/meta2d/point/signal-type')['getSignalTypeValue']
   const getToArrowInfo: typeof import('./composables/meta2d/arrow')['getToArrowInfo']
+  const graphicsData: typeof import('./composables/meta2d/graphics')['graphicsData']
   const h: typeof import('vue')['h']
   const hexToRgba: typeof import('./composables/color')['hexToRgba']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
@@ -403,6 +405,7 @@ declare module 'vue' {
     readonly getRandomStr: UnwrapRef<typeof import('./composables/random')['getRandomStr']>
     readonly getSignalTypeValue: UnwrapRef<typeof import('./composables/meta2d/point/signal-type')['getSignalTypeValue']>
     readonly getToArrowInfo: UnwrapRef<typeof import('./composables/meta2d/arrow')['getToArrowInfo']>
+    readonly graphicsData: UnwrapRef<typeof import('./composables/meta2d/graphics')['graphicsData']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
@@ -710,6 +713,7 @@ declare module '@vue/runtime-core' {
     readonly getRandomStr: UnwrapRef<typeof import('./composables/random')['getRandomStr']>
     readonly getSignalTypeValue: UnwrapRef<typeof import('./composables/meta2d/point/signal-type')['getSignalTypeValue']>
     readonly getToArrowInfo: UnwrapRef<typeof import('./composables/meta2d/arrow')['getToArrowInfo']>
+    readonly graphicsData: UnwrapRef<typeof import('./composables/meta2d/graphics')['graphicsData']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>

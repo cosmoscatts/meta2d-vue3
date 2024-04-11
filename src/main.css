@@ -28,3 +28,15 @@ html.dark {
 html.dark .meta2d-map {
   background: #182033 !important;
 }
+
+.arco-tabs-nav::before {
+  background-color: #aaa3 !important;
+}
+
+.arco-collapse-item {
+  border: 1px solid #aaa3 !important;
+}
+
+.arco-collapse-item {
+  background-color: transparent !important;
+}
