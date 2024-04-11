@@ -15,9 +15,11 @@ provide('isViewMounted', isViewMounted)
           Primary
         </a-button>
       </div>
-      <div col-span-4 border-x="1 solid" border-base>
-        <View />
-      </div>
+      <ContextMenu>
+        <div col-span-4 border-x="1 solid" border-base>
+          <View />
+        </div>
+      </ContextMenu>
       <div col-span-1>
         3
       </div>
