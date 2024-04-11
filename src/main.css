@@ -1,0 +1,15 @@
+html,
+body,
+#app {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+html.dark {
+  background: #101828;
+  color: white;
+  color-scheme: dark;
+}

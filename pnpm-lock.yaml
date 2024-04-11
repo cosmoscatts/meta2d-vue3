@@ -94,9 +94,6 @@ devDependencies:
   vite:
     specifier: ^5.2.0
     version: 5.2.8(@types/node@20.12.7)
-  vite-plugin-vue-layouts:
-    specifier: ^0.11.0
-    version: 0.11.0(vite@5.2.8)(vue-router@4.3.0)(vue@3.4.21)
   vitest:
     specifier: ^1.4.0
     version: 1.4.0(@types/node@20.12.7)
@@ -1848,10 +1845,6 @@ packages:
     dependencies:
       '@vue/compiler-dom': 3.4.21
       '@vue/shared': 3.4.21
-
-  /@vue/devtools-api@6.6.1:
-    resolution: {integrity: sha512-LgPscpE3Vs0x96PzSSB4IGVSZXZBZHpfxs+ZA1d+VEPwHdOXowy/Y2CsvCAIFrf+ssVU1pD1jidj505EpUnfbA==, tarball: https://registry.npmmirror.com/@vue/devtools-api/-/devtools-api-6.6.1.tgz}
-    dev: true
 
   /@vue/language-core@2.0.12(typescript@5.4.5):
     resolution: {integrity: sha512-aIStDPt69SHOpiIckGTIIjEz/sXc6ZfCMS5uWYL1AcbcRMhzFCLZscGAVte1+ad+RRFepSpKBjGttyPcgKJ7ww==, tarball: https://registry.npmmirror.com/@vue/language-core/-/language-core-2.0.12.tgz}
@@ -4673,22 +4666,6 @@ packages:
       - terser
     dev: true
 
-  /vite-plugin-vue-layouts@0.11.0(vite@5.2.8)(vue-router@4.3.0)(vue@3.4.21):
-    resolution: {integrity: sha512-uh6NW7lt+aOXujK4eHfiNbeo55K9OTuB7fnv+5RVc4OBn/cZull6ThXdYH03JzKanUfgt6QZ37NbbtJ0og59qw==, tarball: https://registry.npmmirror.com/vite-plugin-vue-layouts/-/vite-plugin-vue-layouts-0.11.0.tgz}
-    peerDependencies:
-      vite: ^4.0.0 || ^5.0.0
-      vue: ^3.2.4
-      vue-router: ^4.0.11
-    dependencies:
-      debug: 4.3.4
-      fast-glob: 3.3.2
-      vite: 5.2.8(@types/node@20.12.7)
-      vue: 3.4.21(typescript@5.4.5)
-      vue-router: 4.3.0(vue@3.4.21)
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /vite@5.2.8(@types/node@20.12.7):
     resolution: {integrity: sha512-OyZR+c1CE8yeHw5V5t59aXsUPPVTHMDjEZz8MgguLL/Q7NblxhZUlTu9xSPqlsUO/y+X7dlU05jdhvyycD55DA==, tarball: https://registry.npmmirror.com/vite/-/vite-5.2.8.tgz}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -4811,15 +4788,6 @@ packages:
       semver: 7.6.0
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /vue-router@4.3.0(vue@3.4.21):
-    resolution: {integrity: sha512-dqUcs8tUeG+ssgWhcPbjHvazML16Oga5w34uCUmsk7i0BcnskoLGwjpa15fqMr2Fa5JgVBrdL2MEgqz6XZ/6IQ==, tarball: https://registry.npmmirror.com/vue-router/-/vue-router-4.3.0.tgz}
-    peerDependencies:
-      vue: ^3.2.0
-    dependencies:
-      '@vue/devtools-api': 6.6.1
-      vue: 3.4.21(typescript@5.4.5)
     dev: true
 
   /vue-template-compiler@2.7.16:

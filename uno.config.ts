@@ -12,14 +12,16 @@ import {
 export default defineConfig({
   shortcuts: [
     {
-      'hw-full': 'h-full w-full',
-      'hw-screen': 'h-screen w-screen',
-      'flex-center': 'flex justify-center items-center',
-      'flex-x-center': 'flex justify-center',
-      'flex-y-center': 'flex items-center',
-      'flex-col-center': 'flex-col flex-center',
-      'icon-btn': 'op30 hover:op100 hover:text-primary!',
-      'border-base': 'border-[var(--color-neutral-3)]',
+      'text-base': 'text-#232323 dark:text-#f3f3f3',
+      'border-base': 'border-#aaa3',
+      'bg-base': 'bg-white dark:bg-#101828',
+      'bg-glass': 'bg-white:75 dark:bg-#101828:75 backdrop-blur-5',
+      'bg-hover': 'bg-gray:5',
+      'bg-active': 'bg-gray:10',
+      'text-button': 'border-box bg-hover hover:bg-active px3 py1 flex gap-1 items-center justify-center',
+      'icon-button': 'border-box bg-hover hover:bg-active p1',
+      'icon-button-sm': 'icon-button p0.5 text-sm',
+      'action-button': 'border border-base rounded flex gap-2 items-center px2 py1 text-sm op75 hover:op100 hover:bg-hover',
     },
     [/^btn-(\w+)$/, ([_, color]) => `op90 px2.5 py1 transition-all duration-200 ease-out no-underline! cursor-pointer hover:(text-${color} bg-${color}/10) border border-base! rounded`],
     [/^tag-(\w+)$/, ([_, color]) => `op90 px2.5 py1 transition-all duration-200 ease-out no-underline! cursor-pointer text-${color} bg-${color}/10 border border-base! rounded`],
@@ -57,9 +59,7 @@ export default defineConfig({
       xxl: '1920px',
     },
     colors: {
-      primary: 'rgba(var(--primary-6))',
-      primary_hover: 'rgba(var(--primary-5))',
-      primary_click: 'rgba(var(--primary-7))',
+      primary: '#722ED1',
     },
   },
   safelist: [
