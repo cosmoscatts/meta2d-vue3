@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import logo from '/public/favicon.ico'
+
 const toggleTheme = toggleDark
 </script>
 
 <template>
   <div h-50px flex justify-between items-center border-b="1 solid" border-base px-4 shadow>
-    <div font-bold text-xl>
-      Meta2d.js
+    <div font-bold text-lg flex items-center gap-3 text-base>
+      <img :src="logo" h-36px rounded>
+      2D可视化
+      <span op50 font-mono inline-block translate-y--2 text-0.6em font-200> v0.0.1 </span>
     </div>
 
     <Toolbar />
