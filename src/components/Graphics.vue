@@ -21,7 +21,7 @@ function dragStart(e: any, elem: any) {
 </script>
 
 <template>
-  <div h-full w-full>
+  <div h="[calc(100vh-120px)]" w-full of-y-auto>
     <a-collapse :bordered="false">
       <a-collapse-item v-for="item in graphicsData" :key="item.name" :header="`${item.name}(${item.list.length})`">
         <div grid="~ cols-2 gap-5" w-full>

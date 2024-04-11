@@ -29,14 +29,19 @@ html.dark .meta2d-map {
   background: #182033 !important;
 }
 
+.arco-tabs-content {
+  padding-top: 0px !important;
+}
+
 .arco-tabs-nav::before {
   background-color: #aaa3 !important;
 }
 
 .arco-collapse-item {
-  border: 1px solid #aaa3 !important;
+  border-bottom: 1px solid #aaa3 !important;
 }
 
-.arco-collapse-item {
+.arco-collapse-item-header {
   background-color: transparent !important;
 }
+

@@ -1,9 +1,8 @@
-import { activity, baseShape, errorTree, flow, mind, point, timeAndClass } from '~/const'
+import { activity, baseShape, errorTree, flow, mind, timeAndClass } from '~/const'
 
 export const graphicsData = [
-  activity,
-  point,
   baseShape,
+  activity,
   errorTree,
   flow,
   mind,
