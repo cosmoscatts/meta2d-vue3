@@ -75,7 +75,7 @@ function saveAsTemplate() {
 
     <Toolbar />
 
-    <div flex items-center gap-4>
+    <div flex items-center gap-2>
       <div action-button-active @click="save">
         保存
       </div>
@@ -92,6 +92,12 @@ function saveAsTemplate() {
         title="切换主题" cursor-pointer
         i-ph-sun-dim-duotone dark:i-ph-moon-stars-duotone text-xl op50 hover:op75
         @click="toggleTheme"
+      />
+
+      <a
+        href="https://github.com/cosmoscatts/meta2d-vue3"
+        rel="noopener noreferrer" target="_blank"
+        i-carbon-logo-github text-lg op50 hover:op75
       />
 
       <a-modal
