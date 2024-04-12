@@ -23,15 +23,15 @@ const form = reactive<FileProps>({
 
 function setForm() {
   const options = meta2d.getOptions()
-  form.grid = options.grid
-  form.gridSize = options.gridSize
   form.disableScale = options.disableScale
-  form.rule = options.rule
   form.hoverColor = options.hoverColor
   form.activeColor = options.activeColor
 
   const data = meta2d.store.data
+  form.grid = data.grid
+  form.gridSize = data.gridSize
   form.background = data.background
+  form.rule = data.rule
   form.ruleColor = data.ruleColor
   form.gridColor = data.gridColor
 }

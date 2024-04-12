@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { deepClone } from '@meta2d/core'
 import logo from '/public/favicon.ico'
-import { version } from '/package.json'
+import { version } from '../../package.json'
 
 const toggleTheme = toggleDark
 
