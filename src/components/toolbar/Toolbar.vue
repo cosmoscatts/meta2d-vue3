@@ -36,7 +36,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div flex items-center justify-center gap-3>
+  <div flex items-center justify-center gap-2 xl:gap-3>
     <ToolbarUndo />
 
     <ToolbarRedo />

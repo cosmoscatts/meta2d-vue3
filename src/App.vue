@@ -7,20 +7,24 @@ provide('isViewMounted', isViewMounted)
 
 <template>
   <div h-screen w-screen bg-base>
-    <Header />
+    <Header lt-lg:hidden />
 
-    <div h="[calc(100vh-80px)]" grid="~ cols-6">
+    <div h="[calc(100vh-80px)]" grid="~ cols-6" lt-lg:hidden>
       <div col-span-1>
         <SideBar />
       </div>
       <ContextMenu>
-        <div col-span-4 border-x="1 solid" border-base>
+        <div col-span-4 border-x="1 solid" border-base bg-hex-fbfbff dark:bg-hex-182033>
           <View />
         </div>
       </ContextMenu>
       <div col-span-1>
-        3
+        <Props />
       </div>
+    </div>
+
+    <div lg:hidden h="[calc(100vh-30px)]" flex justify-center items-center op-50 font-bold text-4xl>
+      请将窗口放大
     </div>
 
     <Footer />
