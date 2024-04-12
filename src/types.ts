@@ -5,6 +5,11 @@ declare global {
   const meta2d: Meta2d
   const C2S: any
 
+  interface SelectOption {
+    value: string | number
+    label: string
+  }
+
   interface UserTemplate {
     id: string
     image: string

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { deepClone } from '@meta2d/core'
 import logo from '/public/favicon.ico'
+import { version } from '/package.json'
 
 const toggleTheme = toggleDark
 
@@ -73,7 +74,7 @@ function saveAsTemplate() {
     <div font-bold text-lg flex items-center gap-3 text-base>
       <img :src="logo" h-36px rounded>
       2D可视化
-      <span op50 font-mono inline-block translate-y--2 text-0.6em font-200> v0.0.1 </span>
+      <span op50 font-mono inline-block translate-y--2 text-0.6em font-200> v{{ version }} </span>
     </div>
 
     <Toolbar />

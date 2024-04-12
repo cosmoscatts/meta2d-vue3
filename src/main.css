@@ -112,3 +112,24 @@ html.dark .meta2d-map {
 .arco-trigger-arrow {
   --at-apply: hidden;
 }
+
+/* Message */
+
+.arco-message {
+  background-color: var(--c-bg-base);
+  border-color: #aaa3;
+}
+
+/* Modal */
+
+.arco-modal {
+  background-color: var(--c-bg-base);
+}
+
+.arco-modal-header  {
+  border-bottom: 1px solid #aaa3;
+}
+
+.arco-modal-footer {
+  border-top: 1px solid #aaa3;
+}

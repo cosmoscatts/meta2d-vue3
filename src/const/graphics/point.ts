@@ -27,7 +27,7 @@ export const signalInfoMap = {
     nameText: '温度',
     valueText: '测点值（°C）',
   },
-}
+} as any
 
 /**
  * 创建测量点组合图元工具方法，参数为占位符显示名称

@@ -123,7 +123,7 @@ onMounted(() => {
       图元设置
     </div>
 
-    <a-form v-if="selections.pen" :model="form" auto-label-width label-align="left" size="small">
+    <a-form :model="form" auto-label-width label-align="left" size="small">
       <a-form-item label="边框颜色" name="color">
         <ColorPicker v-model="form.color" hide-reset @change="changeValue('color')" />
       </a-form-item>
