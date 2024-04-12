@@ -1,7 +1,68 @@
 <script setup lang="ts">
+import { deepClone } from '@meta2d/core'
 import logo from '/public/favicon.ico'
 
 const toggleTheme = toggleDark
+
+function save() {
+  Message.success('图纸数据已保存成功')
+  const data = deepClone(meta2d.data())
+  localStorage.setItem('meta2d', JSON.stringify(data))
+}
+
+function clear() {
+  useConfirm({
+    title: '提示',
+    content: '确定要清空图纸吗？',
+    ok() {
+      meta2d.clear()
+      Message.success('清空图纸成功')
+    },
+  })
+}
+
+const refForm = ref()
+const visible = ref(false)
+const form = reactive({
+  name: '',
+})
+const { loadTemplates } = useUserComponents()
+
+function openModal() {
+  form.name = ''
+  visible.value = true
+}
+
+async function handleBeforeOk() {
+  const errors = await refForm.value.validate()
+  if (errors)
+    return false
+  return true
+}
+
+function saveAsTemplate() {
+  const isInfinity = (val?: number) => !Number.isFinite(val)
+  const data = meta2d.toComponent()
+  if (Array.isArray(data)) {
+    const { width, height } = data[0]
+    if ([width, height].some(isInfinity)) {
+      Message.error('当前组态没有内容')
+      return
+    }
+  }
+  const image = meta2d.toPng(10)
+  const cacheStr = localStorage.getItem('meta2d-templates')
+  let caches = cacheStr ? JSON.parse(cacheStr) : undefined
+
+  if (!caches)
+    caches = []
+
+  caches = [...caches, { id: getRandomStr(6), name: form.name, data, image }]
+  localStorage.setItem('meta2d-templates', JSON.stringify(caches))
+  loadTemplates()
+  Message.success('另存为组件成功')
+  visible.value = false
+}
 </script>
 
 <template>
@@ -15,15 +76,15 @@ const toggleTheme = toggleDark
     <Toolbar />
 
     <div flex items-center gap-4>
-      <div action-button-active>
+      <div action-button-active @click="save">
         保存
       </div>
 
-      <div action-button>
+      <div action-button @click="clear">
         清空
       </div>
 
-      <div action-button>
+      <div action-button @click="openModal">
         另存为组件
       </div>
 
@@ -32,6 +93,26 @@ const toggleTheme = toggleDark
         i-ph-sun-dim-duotone dark:i-ph-moon-stars-duotone text-xl op50 hover:op75
         @click="toggleTheme"
       />
+
+      <a-modal
+        v-model:visible="visible"
+        title="自定义组件信息"
+        @cancel="visible = false"
+        @before-ok="handleBeforeOk"
+        @ok="saveAsTemplate"
+      >
+        <a-form ref="refForm" :model="form">
+          <a-form-item
+            field="name" label="组件名称"
+            :rules="[
+              { required: true, message: '组件名称是必须的' },
+              { maxLength: 8, message: '最长为8个字符' },
+            ]"
+          >
+            <a-input v-model="form.name" />
+          </a-form-item>
+        </a-form>
+      </a-modal>
     </div>
   </div>
 </template>

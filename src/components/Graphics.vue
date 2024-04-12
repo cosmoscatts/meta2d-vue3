@@ -1,16 +1,3 @@
-<script lang="ts" setup>
-function dragStart(e: DragEvent | MouseEvent, elem: any) {
-  if (!elem)
-    return
-
-  e.stopPropagation()
-
-  const data = elem.data
-  if (e instanceof DragEvent)
-    e.dataTransfer?.setData('Meta2d', JSON.stringify(data))
-}
-</script>
-
 <template>
   <div h="[calc(100vh-120px)]" w-full of-y-auto>
     <a-collapse :bordered="false">
@@ -26,7 +13,7 @@ function dragStart(e: DragEvent | MouseEvent, elem: any) {
             <svg aria-hidden="true" h-28px w-full fill-primary>
               <use :xlink:href="`#${elem.icon}`" />
             </svg>
-            <div :title="elem.name" mt-4 text-center>
+            <div mt-4 text-center>
               {{ elem.name }}
             </div>
           </div>

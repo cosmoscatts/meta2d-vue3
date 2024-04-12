@@ -4,7 +4,7 @@ const currentTabs = ref(1)
 
 <template>
   <div h-full w-full>
-    <a-tabs v-molde="currentTabs">
+    <a-tabs v-model="currentTabs">
       <a-tab-pane :key="1" title="基本图元">
         <Graphics border="1 red" />
       </a-tab-pane>

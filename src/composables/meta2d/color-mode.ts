@@ -41,6 +41,7 @@ export function listenDarkModeChange() {
     setPenColor()
     meta2d.render()
   }
+  resetColor()
 
   watch(isDark, resetColor)
 }
