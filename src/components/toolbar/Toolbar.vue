@@ -3,34 +3,11 @@ import ToolbarText from './ToolbarText.vue'
 
 const isViewMounted = inject('isViewMounted') as Ref<boolean>
 
-const scale = ref(0)
-const disableScale = ref(true)
-
-function updateDisableScale() {
-  if (!isViewMounted.value) {
-    disableScale.value = true
-    return
-  }
-  disableScale.value = meta2d.getOptions()?.disableScale || false
-}
-
-function scaleSubscriber(val = 0) {
-  scale.value = Math.round(val * 100)
-}
-
-function getScaleByInterval() {
-  const timer = setInterval(() => {
-    if (meta2d) {
-      clearInterval(timer)
-      scaleSubscriber(meta2d.store.data.scale)
-      meta2d.on('scale', scaleSubscriber)
-    }
-  }, 200)
-}
+const { scale, disableScale, updateDisableScale, getScaleByInterval } = useScale()
 
 onMounted(async () => {
   await until(isViewMounted)
-  updateDisableScale()
+  updateDisableScale(isViewMounted)
   getScaleByInterval()
 })
 </script>

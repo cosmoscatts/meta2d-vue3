@@ -27,6 +27,7 @@ declare module 'vue' {
     ATooltip: typeof import('@arco-design/web-vue')['Tooltip']
     ATrigger: typeof import('@arco-design/web-vue')['Trigger']
     AUpload: typeof import('@arco-design/web-vue')['Upload']
+    ColorPicker: typeof import('./components/ColorPicker.vue')['default']
     ContextMenu: typeof import('./components/ContextMenu.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
     Graphics: typeof import('./components/Graphics.vue')['default']

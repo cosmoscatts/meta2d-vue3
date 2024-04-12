@@ -6,19 +6,19 @@ provide('isViewMounted', isViewMounted)
 </script>
 
 <template>
-  <div h-screen w-screen bg-base>
+  <div h-screen w-screen bg-base flex="~ col">
     <Header lt-lg:hidden />
 
-    <div h="[calc(100vh-80px)]" grid="~ cols-6" lt-lg:hidden>
-      <div col-span-1>
+    <div grid="~ cols-6" lt-lg:hidden>
+      <div col-span-1 h="[calc(100vh-80px)]">
         <SideBar />
       </div>
       <ContextMenu>
-        <div col-span-4 border-x="1 solid" border-base bg-hex-fbfbff dark:bg-hex-182033>
+        <div col-span-4 border-x="1 solid" border-base bg-hex-fbfbff dark:bg-hex-182033 h="[calc(100vh-80px)]">
           <View />
         </div>
       </ContextMenu>
-      <div col-span-1>
+      <div col-span-1 h="[calc(100vh-80px)]">
         <Props />
       </div>
     </div>

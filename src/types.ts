@@ -11,4 +11,16 @@ declare global {
     name: string
     data: any
   }
+
+  interface FileProps {
+    grid?: boolean
+    gridSize?: number
+    gridColor?: string
+    rule?: boolean
+    ruleColor?: string
+    background?: string
+    disableScale?: boolean
+    activeColor?: string // 选中颜色
+    hoverColor?: string // 悬浮颜色
+  }
 }

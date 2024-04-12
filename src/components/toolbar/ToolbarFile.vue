@@ -37,9 +37,6 @@ function openFile() {
       try {
         // 3. 打开文件内容
         meta2d.open(JSON.parse(text))
-
-        // TODO 可选：缩放到窗口大小展示
-        meta2d.fitView()
       }
       catch (e) {
         console.error(e)

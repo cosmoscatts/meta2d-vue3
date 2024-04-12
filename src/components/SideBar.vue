@@ -1,12 +1,12 @@
 <script setup lang="ts">
-const currentTabs = ref(1)
+const currentTab = ref(1)
 </script>
 
 <template>
   <div h-full w-full>
-    <a-tabs v-model="currentTabs">
+    <a-tabs v-model="currentTab">
       <a-tab-pane :key="1" title="基本图元">
-        <Graphics border="1 red" />
+        <Graphics />
       </a-tab-pane>
       <a-tab-pane :key="2" title="设备图库">
         <ListEquip />

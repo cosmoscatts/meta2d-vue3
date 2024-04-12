@@ -4,6 +4,8 @@ import logo from '/public/favicon.ico'
 
 const toggleTheme = toggleDark
 
+const { getScaleByInterval } = useScale()
+
 function save() {
   Message.success('图纸数据已保存成功')
   const data = deepClone(meta2d.data())
@@ -17,6 +19,7 @@ function clear() {
     ok() {
       meta2d.clear()
       Message.success('清空图纸成功')
+      getScaleByInterval()
     },
   })
 }

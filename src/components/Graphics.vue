@@ -1,12 +1,10 @@
-<script setup>
-const expandKeys = computed(() => {
-  return graphicsData.map(i => i.name)
-})
+<script setup lang="ts">
+const expandKeys = ref<string[]>(graphicsData.map(i => i.name))
 </script>
 
 <template>
   <div h="[calc(100vh-120px)]" w-full of-y-auto>
-    <a-collapse :bordered="false" :active-key="expandKeys">
+    <a-collapse :default-active-key="expandKeys" :bordered="false">
       <a-collapse-item v-for="item in graphicsData" :key="item.name" :header="`${item.name}(${item.list.length})`">
         <div grid="~ cols-2 gap-5" w-full>
           <div

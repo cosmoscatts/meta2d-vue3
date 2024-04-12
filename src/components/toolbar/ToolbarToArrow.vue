@@ -7,7 +7,7 @@ const svgFillColor = computed(() => ['#232323', '#f3f3f3'][Number(isDark.value)]
 <template>
   <a-dropdown trigger="hover" :popup-max-height="false">
     <div>
-      <svg cursor-pointer size-6 color-red op50 hover:op75 aria-hidden="true" :fill="svgFillColor">
+      <svg cursor-pointer size-6 op50 hover:op75 aria-hidden="true" :fill="svgFillColor">
         <use
           :xlink:href="
             toArrows.find((item) => item.value === currentToArrow)?.icon
