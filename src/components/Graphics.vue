@@ -1,6 +1,12 @@
+<script setup>
+const expandKeys = computed(() => {
+  return graphicsData.map(i => i.name)
+})
+</script>
+
 <template>
   <div h="[calc(100vh-120px)]" w-full of-y-auto>
-    <a-collapse :bordered="false">
+    <a-collapse :bordered="false" :active-key="expandKeys">
       <a-collapse-item v-for="item in graphicsData" :key="item.name" :header="`${item.name}(${item.list.length})`">
         <div grid="~ cols-2 gap-5" w-full>
           <div
@@ -11,7 +17,7 @@
             @click.prevent="dragStart($event, elem)"
           >
             <div v-if="elem?.point" flex justify-center items-center>
-              <div :class="`${elem.icon}`" size-36px />
+              <div :class="`${elem.icon}`" size-36px text-primary />
             </div>
             <svg v-else aria-hidden="true" h-28px w-full fill-primary>
               <use :xlink:href="`#${elem.icon}`" />
