@@ -1,4 +1,7 @@
 <script setup lang="ts">
+const props = defineProps<{
+  hideReset?: boolean
+}>()
 defineEmits(['change', 'reset'])
 const modelValue = defineModel<string | undefined>()
 
@@ -38,6 +41,8 @@ function isColorCloseToWhite(rgb?: string) {
 const isWhite = computed(() => {
   return isColorCloseToWhite(modelValue.value)
 })
+
+const showReset = computed(() => !props.hideReset)
 </script>
 
 <template>
@@ -61,7 +66,7 @@ const isWhite = computed(() => {
       </a-tag>
     </a-color-picker>
 
-    <div action-button text-lg @click="$emit('reset')">
+    <div v-if="showReset" action-button text-lg @click="$emit('reset')">
       <div i-ph:arrow-counter-clockwise-light />
     </div>
   </div>
