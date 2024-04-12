@@ -10,7 +10,10 @@
             @dragstart="dragStart($event, elem)"
             @click.prevent="dragStart($event, elem)"
           >
-            <svg aria-hidden="true" h-28px w-full fill-primary>
+            <div v-if="elem?.point" flex justify-center items-center>
+              <div :class="`${elem.icon}`" size-36px />
+            </div>
+            <svg v-else aria-hidden="true" h-28px w-full fill-primary>
               <use :xlink:href="`#${elem.icon}`" />
             </svg>
             <div mt-4 text-center>

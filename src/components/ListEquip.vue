@@ -77,5 +77,6 @@ const equips = computed(() => {
 :deep(.arco-upload-picture-card .arco-icon) {
   width: 2.5em;
   height: 2.5em;
+  --at-apply: text-primary op-90;
 }
 </style>
