@@ -1,22 +1,13 @@
 <script lang="ts" setup>
-import { s8 } from '@meta2d/core'
-
-function dragStart(e: any, elem: any) {
+function dragStart(e: DragEvent | MouseEvent, elem: any) {
   if (!elem)
     return
 
   e.stopPropagation()
 
-  const data = { ...elem.data, id: s8() }
-  // 拖拽事件
-  if (e instanceof DragEvent) {
-    // 设置拖拽数据
+  const data = elem.data
+  if (e instanceof DragEvent)
     e.dataTransfer?.setData('Meta2d', JSON.stringify(data))
-  }
-  else {
-    // 支持单击添加图元。平板模式
-    meta2d.canvas.addCaches = [data]
-  }
 }
 </script>
 
@@ -27,18 +18,17 @@ function dragStart(e: any, elem: any) {
         <div grid="~ cols-2 gap-5" w-full>
           <div
             v-for="elem in item.list" :key="elem.name"
-            flex="~ col" hover:bg="gray/10" col-span-1 border-box px-6px py-10px
+            flex="~ col " justify-center hover:bg="gray/10" col-span-1 border-box px-6px py-15px cursor-pointer
             :draggable="true"
             @dragstart="dragStart($event, elem)"
             @click.prevent="dragStart($event, elem)"
           >
-            <svg v-if="!elem?.image" class="l-icon" aria-hidden="true" style="height: 28px; width: 100%;">
+            <svg aria-hidden="true" h-28px w-full fill-primary>
               <use :xlink:href="`#${elem.icon}`" />
             </svg>
-            <img v-else :src="elem?.image" h-28px>
-            <p :title="elem.name" mt-2 text-center>
+            <div :title="elem.name" mt-4 text-center>
               {{ elem.name }}
-            </p>
+            </div>
           </div>
         </div>
       </a-collapse-item>
