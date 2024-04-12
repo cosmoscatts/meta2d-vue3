@@ -30,5 +30,7 @@ export function getDefaultOptions() {
     color: getDefaultPenColor(),
     disableScale: true,
     background: getDefaultBackgroundColor(),
+    activeColor: '#722ED1',
+    hoverColor: '#A871E3',
   }
 }

@@ -1,69 +1,126 @@
 <script lang="ts" setup>
-const isViewMounted = inject('isViewMounted') as Ref<boolean>
-const updateFilePropsCallback = inject('updateFilePropsCallback') as () => void
+import {
+  getDefaultBackgroundColor,
+  getDefaultGridColor,
+  getDefaultRuleColor,
+} from '~/const'
 
-const options = computed(() => {
-  return meta2d?.getOptions?.()
-})
-const form = reactive<any>({
+const isViewMounted = inject('isViewMounted') as Ref<boolean>
+
+const { updateDisableScale } = useScale()
+
+const form = reactive<FileProps>({
   grid: undefined,
   gridSize: undefined,
+  gridColor: '',
   rule: undefined,
-  background: undefined,
+  ruleColor: '',
+  background: '',
   disableScale: undefined,
+  activeColor: '', // 选中颜色
+  hoverColor: '', // 悬浮颜色
 })
+
+function setForm() {
+  const options = meta2d.getOptions()
+  form.grid = options.grid
+  form.gridSize = options.gridSize
+  form.disableScale = options.disableScale
+  form.rule = options.rule
+  form.hoverColor = options.hoverColor
+  form.activeColor = options.activeColor
+
+  const data = meta2d.store.data
+  form.background = data.background
+  form.ruleColor = data.ruleColor
+  form.gridColor = data.gridColor
+}
 
 onMounted(async () => {
   await until(isViewMounted)
-  form.grid = options.value.grid
-  form.gridSize = options.value.gridSize
-  form.disableScale = options.value.disableScale
-  form.rule = options.value.rule
-  form.background = meta2d.store.data.background
+
+  setForm()
 })
 
+watch(isDark, setForm)
+
 function onChangeBackground() {
+  if (form.background
+    && meta2d.store.data.background
+    && form.background.toLowerCase() === meta2d.store.data.background.toLowerCase()
+  )
+    return
+
   meta2d.setBackgroundColor(form.background)
   ;(meta2d.store as any).patchFlagsBackground = true
   meta2d.render()
 }
 
 function onChangeOptions() {
-  const { grid, gridSize, rule, disableScale } = form
+  const {
+    grid,
+    gridSize,
+    gridColor,
+    rule,
+    ruleColor,
+    disableScale,
+    activeColor,
+    hoverColor,
+  } = form
+  const changeRuleColor = !(form.ruleColor
+    && meta2d.store.data.ruleColor
+    && form.ruleColor.toLowerCase() === meta2d.store.data.ruleColor.toLowerCase())
+  const changeGridColor = !(form.gridColor
+    && meta2d.store.data.gridColor
+    && form.gridColor.toLowerCase() === meta2d.store.data.gridColor.toLowerCase())
   meta2d.setRule({
     rule,
+    ruleColor: changeRuleColor ? ruleColor : undefined,
   })
   meta2d.setOptions({
     disableScale,
+    activeColor,
+    hoverColor,
   })
   meta2d.setGrid({
     grid,
     gridSize,
+    gridColor: changeGridColor ? gridColor : undefined,
   })
   meta2d.store.patchFlagsTop = true
   ;(meta2d.store as any).patchFlagsBackground = true
   meta2d.render()
-  updateFilePropsCallback()
+  updateDisableScale(isViewMounted)
 }
 </script>
 
 <template>
-  <div w-full h-full>
+  <div px-10px py-15px>
     <div mb-4 font-bold text-xl>
       图纸设置
     </div>
-    <a-form :model="form" auto-label-width label-align="left">
+
+    <a-form :model="form" label-align="left" auto-label-width>
       <a-form-item label="网格" name="grid">
         <a-switch v-model="form.grid" @change="onChangeOptions" />
       </a-form-item>
+
       <a-form-item label="网格大小" name="gridSize">
-        <a-input-number v-model="form.gridSize" hide-button @change="onChangeOptions" />
+        <a-input-number v-model="form.gridSize" hide-button w-100px @change="onChangeOptions" />
+      </a-form-item>
+
+      <a-form-item label="网格颜色" name="gridColor">
+        <ColorPicker v-model="form.gridColor" @change="onChangeOptions" @reset="form.gridColor = getDefaultGridColor().toUpperCase()" />
       </a-form-item>
 
       <a-divider />
 
       <a-form-item label="标尺" name="rule">
         <a-switch v-model="form.rule" @change="onChangeOptions" />
+      </a-form-item>
+
+      <a-form-item label="标尺颜色" name="ruleColor">
+        <ColorPicker v-model="form.ruleColor" @change="onChangeOptions" @reset="form.ruleColor = getDefaultRuleColor().toUpperCase()" />
       </a-form-item>
 
       <a-form-item label="图纸缩放" name="disableScale">
@@ -73,7 +130,15 @@ function onChangeOptions() {
       <a-divider />
 
       <a-form-item label="背景颜色" name="background">
-        <a-color-picker v-model="form.background" disabled-alpha show-text @change="onChangeBackground" />
+        <ColorPicker v-model="form.background" @change="onChangeBackground" @reset="form.background = getDefaultBackgroundColor().toUpperCase()" />
+      </a-form-item>
+
+      <a-form-item label="选中颜色" name="activeColor">
+        <ColorPicker v-model="form.activeColor" @change="onChangeOptions" @reset="form.activeColor = '#722ED1'.toUpperCase()" />
+      </a-form-item>
+
+      <a-form-item label="悬浮颜色" name="hoverColor">
+        <ColorPicker v-model="form.hoverColor" @change="onChangeOptions" @reset="form.hoverColor = '#A871E3'.toUpperCase()" />
       </a-form-item>
     </a-form>
   </div>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Meta2d } from '@meta2d/core'
-import { defaultOptions } from '~/const'
+import { getDefaultOptions } from '~/const'
 
 const el = ref()
 const { width, height } = useElementSize(el)
@@ -11,7 +11,7 @@ watch([width, height], ([w, h]) => {
 })
 
 onMounted(() => {
-  new Meta2d('meta2d', defaultOptions)
+  new Meta2d('meta2d', getDefaultOptions())
   registerMeta2dPlugins()
   loadMeta2dData()
   bindMeta2dActive()

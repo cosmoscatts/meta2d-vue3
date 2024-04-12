@@ -33,12 +33,6 @@ function setLockedState() {
   hasLocked.value = pens.map(pen => pen.locked || 0).filter(i => i > 0).length === pens.length
 }
 
-const isViewMounted = inject('isViewMounted') as Ref<boolean>
-onMounted(async () => {
-  await until(isViewMounted)
-  setLockedState()
-})
-
 const showCombine = computed(() => isPens.value)
 const showUncombine = computed(() => {
   if (!hasPen.value)
@@ -265,6 +259,12 @@ function bottom() {
 
   meta2d.bottom(selections.pen as Pen)
 }
+
+const isViewMounted = inject('isViewMounted') as Ref<boolean>
+onMounted(async () => {
+  await until(isViewMounted)
+  setLockedState()
+})
 </script>
 
 <template>

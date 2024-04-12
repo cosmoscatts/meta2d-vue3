@@ -1,10 +1,6 @@
 <script setup lang="ts">
-defineEmits(['change'])
+defineEmits(['change', 'reset'])
 const modelValue = defineModel<string | undefined>()
-
-function reset() {
-  modelValue.value = undefined
-}
 
 const history = ref<string[]>([])
 
@@ -65,7 +61,7 @@ const isWhite = computed(() => {
       </a-tag>
     </a-color-picker>
 
-    <div action-button text-lg @click="reset">
+    <div action-button text-lg @click="$emit('reset')">
       <div i-ph:arrow-counter-clockwise-light />
     </div>
   </div>

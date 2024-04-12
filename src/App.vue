@@ -18,7 +18,7 @@ provide('isViewMounted', isViewMounted)
           <View />
         </div>
       </ContextMenu>
-      <div col-span-1 h="[calc(100vh-80px)]" pr-10px>
+      <div col-span-1 h="[calc(100vh-80px)]" px-10px>
         <Props />
       </div>
     </div>

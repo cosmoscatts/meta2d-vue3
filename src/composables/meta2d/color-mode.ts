@@ -1,15 +1,36 @@
-import { defaultPenColorMap, defaultRuleColorMap, getDefaultPenColor, getDefaultRuleColor } from '~/const'
+import {
+  defaultBackgroundColorMap,
+  defaultGridColorMap,
+  defaultPenColorMap,
+  defaultRuleColorMap,
+  getDefaultBackgroundColor,
+  getDefaultGridColor,
+  getDefaultPenColor,
+  getDefaultRuleColor,
+} from '~/const'
 
 export function listenDarkModeChange() {
-  const options = meta2d.getOptions()
-  if (!options)
-    return
+  function setBackground() {
+    const currentBackground = meta2d.store.data.background
+    const list = [defaultBackgroundColorMap.LIGHT, defaultBackgroundColorMap.DARK] as string[]
+
+    if (!currentBackground || list.includes(currentBackground))
+      meta2d.setBackgroundColor(getDefaultBackgroundColor())
+  }
+
+  function setGridColor() {
+    const currentGridColor = meta2d.store.data.gridColor
+    const list = [defaultGridColorMap.LIGHT, defaultGridColorMap.DARK] as string[]
+
+    if (!currentGridColor || list.includes(currentGridColor)) {
+      meta2d.setGrid({
+        gridColor: getDefaultGridColor(),
+      })
+    }
+  }
 
   function setRuleColor() {
-    if (!options.rule)
-      return
-
-    const currentRuleColor = options.ruleColor
+    const currentRuleColor = meta2d.store.data.ruleColor
     const list = [defaultRuleColorMap.LIGHT, defaultRuleColorMap.DARK] as string[]
 
     if (!currentRuleColor || list.includes(currentRuleColor)) {
@@ -20,9 +41,6 @@ export function listenDarkModeChange() {
   }
 
   function setPenColor() {
-    if (!options.rule)
-      return
-
     const list = [defaultPenColorMap.LIGHT, defaultPenColorMap.DARK] as string[]
 
     Object.values(meta2d.store.pens).filter(Boolean).forEach((pen) => {
@@ -37,6 +55,8 @@ export function listenDarkModeChange() {
   }
 
   function resetColor() {
+    setBackground()
+    setGridColor()
     setRuleColor()
     setPenColor()
     meta2d.render()
