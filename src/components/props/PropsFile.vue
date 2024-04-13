@@ -28,12 +28,15 @@ function setForm() {
   form.activeColor = options.activeColor
 
   const data = meta2d.store.data
+  let gridColor = data.gridColor
+  if (gridColor && ['#AAAAAA', '#AAA3'].includes(gridColor.toUpperCase())) // 初次加载时覆盖默认颜色
+    gridColor = options.gridColor
   form.grid = data.grid
   form.gridSize = data.gridSize
   form.background = data.background
   form.rule = data.rule
   form.ruleColor = data.ruleColor
-  form.gridColor = data.gridColor
+  form.gridColor = gridColor
 }
 
 onMounted(async () => {

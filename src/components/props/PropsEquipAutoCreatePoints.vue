@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { s8 } from '@meta2d/core'
+import type { Pen } from '@meta2d/core'
+import type { WritableComputedRef } from 'vue'
 import { createPointOptions } from './mock'
 import { createBaseCombinePoint, signalInfoMap } from '~/const'
 
@@ -11,7 +13,7 @@ const props = defineProps<{
 const { selections, select } = useMeta2dSelection()
 
 // 已经创建的测点
-const createdPointInfo = ref<{ key?: string[] }>({}) // { [key]: ['A', 'V', ...] }
+const createdPointInfo = ref<Record<string, string[]>>({}) // { [key]: ['A', 'V', ...] }
 
 const pointOptions = ref<{
   value: string
@@ -19,16 +21,16 @@ const pointOptions = ref<{
 }[]>([])
 
 const ponitsCheckData = ref<string[]>([]) // string[]
-const signalCheckData = ref<{ key?: string[] }>({}) // { [key]: ['A', 'V', ...] }
+const signalCheckData = ref<Record<string, string[]>>({}) // { [key]: ['A', 'V', ...] }
 
-const pointIdKeyMap = ref({}) // 旧测点数据映射，key - `pointId-signalType` 对应的是 dataId, 需要和 id 做一个绑定，{ key: [ids] }
+const pointIdKeyMap = ref<Record<string, string[]>>({}) // 旧测点数据映射，key - `pointId-signalType` 对应的是 dataId, 需要和 id 做一个绑定，{ key: [ids] }
 
 const selectedPointIds = computed({
   get() {
     return ponitsCheckData.value
   },
   set(val) {
-    const _signalCheckData = {}
+    const _signalCheckData = {} as Record<string, string[]>
     Object.keys(signalCheckData.value).forEach((id) => {
       if (val.includes(id)) {
         if (!ponitsCheckData.value.includes(id))
@@ -49,7 +51,7 @@ const selectedSignalComputedMap = ref({})
 
 function createSelectedSignalComputedMap() {
   const ids = pointOptions.value.map(i => i.value)
-  const map = {}
+  const map = {} as Record<string, WritableComputedRef<string[]>>
   ids.forEach((id) => {
     map[id] = computed({
       get() {
@@ -75,8 +77,8 @@ function setSignalData() {
   getAllCreatedPoints()
   const _createdPointInfo = createdPointInfo.value
   const _createdPointIds = Object.keys(_createdPointInfo)
-  const _signalCheckData = {}
-  const _ponitsCheckData = []
+  const _signalCheckData = {} as Record<string, string[]>
+  const _ponitsCheckData = [] as string[]
   pointOptions.value.forEach(({ value }) => {
     if (_createdPointIds.includes(value)) {
       _signalCheckData[value] = _createdPointInfo[value]
@@ -119,16 +121,16 @@ function getAllCreatedPoints() {
     const o = prev[pointId] || []
     prev[pointId] = [...o, getSignalTypeValue(cur) || ''].filter(i => i !== '')
     return prev
-  }, {})
+  }, {} as Record<string, string[]>)
 
   pointIdKeyMap.value = currentEquipPoints.reduce((prev, cur) => {
-    const dataId = cur.dataId
+    const dataId = (cur as any).dataId
     if (!dataId)
       return prev
     const o = prev[dataId] || []
-    prev[dataId] = [...o, cur.id].filter(Boolean)
+    prev[dataId] = [...o, cur.id].filter(Boolean) as string[]
     return prev
-  }, {})
+  }, {} as Record<string, string[]>)
 }
 
 /**
@@ -139,7 +141,7 @@ function getAllCreatedPoints() {
  */
 function autoGeneratePoints() {
   // 先统一转换成 'pointId-signalType' 后统一比较
-  const format = (obj) => {
+  const format = (obj: Record<string, string[]>) => {
     return Object.entries(obj).reduce((prev, cur) => {
       const [key, value] = cur
       if (value.length) {
@@ -148,14 +150,14 @@ function autoGeneratePoints() {
         })
       }
       return prev
-    }, [])
+    }, [] as string[])
   }
 
   const oldSigns = format(createdPointInfo.value)
   const currentSigns = format(signalCheckData.value)
 
-  const add = []
-  const remove = []
+  const add = [] as string[]
+  const remove = [] as string[]
   oldSigns.forEach((i) => {
     if (!currentSigns.includes(i))
       remove.push(i)
@@ -179,7 +181,7 @@ function autoGeneratePoints() {
     )
     pointObj[0].x = 30 + idx * 10
     pointObj[0].y = 30
-    pointObj.forEach((o, idx) => {
+    pointObj.forEach((o: any, idx: number) => {
       if (idx > 0)
         o.parentId = id
     })
@@ -189,13 +191,13 @@ function autoGeneratePoints() {
     meta2d.addPens(addPens)
 
   if (remove.length) {
-    const removeIds = []
+    const removeIds = [] as string[]
     // 找到所有子节点 id
     remove.forEach((key) => {
       const ids = pointIdKeyMap.value[key] || []
       if (ids.length) {
         removeIds.push(...ids)
-        const fn = (id) => {
+        const fn = (id: string) => {
           const pen = meta2d.findOne(id)
           if (pen && pen.children?.length)
             pen.children.forEach(pid => removeIds.push(pid))
@@ -203,7 +205,7 @@ function autoGeneratePoints() {
         ids.forEach(fn)
       }
     })
-    const pens = selections.pens
+    const pens = selections.pens as Pen[]
     meta2d.delete(removeIds.map((id) => {
       return {
         id,
@@ -232,27 +234,28 @@ function autoGeneratePoints() {
           </div>
         </div>
       </div>
-      <el-checkbox-group v-model="selectedPointIds">
+      <a-checkbox-group v-model="selectedPointIds">
         <div v-for="item in pointOptions" :key="item.value" grid="~ cols-2">
-          <el-checkbox :label="item.value" col-span-1>
+          <a-checkbox :value="item.value" col-span-1>
             {{ item.label }}
-          </el-checkbox>
+          </a-checkbox>
           <div col-span-1>
-            <el-checkbox-group v-model="selectedSignalComputedMap[item.value]" size="mini">
+            <a-checkbox-group v-model="(selectedSignalComputedMap as any)[item.value]">
               <div grid="~ cols-4" of-hidden>
-                <el-checkbox v-for="j in 4" :key="j" :label="['A', 'V', 'D', 'T'][j - 1]" />
+                <a-checkbox v-for="j in 4" :key="j" :value="['A', 'V', 'D', 'T'][j - 1]" />
               </div>
-            </el-checkbox-group>
+            </a-checkbox-group>
           </div>
         </div>
-      </el-checkbox-group>
-      <div flex-center>
-        <el-button type="primary" size="small" @click="autoGeneratePoints">
+      </a-checkbox-group>
+
+      <div flex items-center justify-center gap-2>
+        <a-button type="dashed" size="small" @click="autoGeneratePoints">
           应用到画布
-        </el-button>
-        <el-button type="warning" size="small" @click="setSignalData">
+        </a-button>
+        <a-button type="dashed" status="warning" size="small" @click="setSignalData">
           重置
-        </el-button>
+        </a-button>
       </div>
     </div>
   </div>

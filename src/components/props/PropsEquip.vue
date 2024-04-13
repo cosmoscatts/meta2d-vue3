@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Pen } from '@meta2d/core'
+import type { FileItem } from '@arco-design/web-vue/es/upload/interfaces'
 import { equipOptions } from './mock'
 
 const { selections } = useMeta2dSelection()
@@ -76,26 +77,11 @@ function changeRect(prop: string) {
   meta2d.setValue(v, { render: true })
 }
 
-async function onBgImageChange(file) {
-  if (!checkImage(file.raw))
-    return
-
-  const imageUrl = await getFileBase64(file.raw)
+async function onBgImageChange(_: FileItem[], currentFile: FileItem) {
+  const imageUrl = await getFileBase64(currentFile.file!)
   form.image = imageUrl
   changeValue('image')
-  $message.success('添加背景图片成功')
-}
-
-function checkImage(file) {
-  const isLt2M = file.size / 1024 / 1024 < 2
-  const isImage = file.type.startsWith('image')
-  if (!isImage)
-    $message.error('请上传图片!')
-
-  if (!isLt2M)
-    $message.error('上传图片大小不能超过 2MB!')
-
-  return isImage && isLt2M
+  Message.success('添加背景图片成功')
 }
 
 onMounted(() => {
@@ -108,78 +94,58 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <el-form :model="form" label-position="right" label-width="80px" size="mini" w-full min-w-190px>
-      <div mb-4 font-bold text-xl>
-        设备
-      </div>
+  <div px-10px py-15px>
+    <div mb-4 font-bold text-xl>
+      设备设置
+    </div>
 
-      <el-form-item label="设备">
-        <el-select v-model="form.equipId" style="width: 100px" @change="changeValue('equipId')">
-          <el-option v-for="item in equipOptions" :key="item.value" :value="item.value" :label="item.label" />
-        </el-select>
-      </el-form-item>
-      <Meta2dEquipPropsAutoCreatePoints :equip-id="form.equipId" :has-seleted-equip="hasSeletedEquip" />
+    <a-form :model="form" auto-label-width label-align="left" size="small">
+      <a-form-item label="设备" name="equipId">
+        <a-select v-model="form.equipId" @change="changeValue('equipId')">
+          <a-option v-for="item in equipOptions" :key="item.value" :value="item.value" :label="item.label" />
+        </a-select>
+      </a-form-item>
 
-      <el-divider />
+      <PropsEquipAutoCreatePoints :equip-id="form.equipId" :has-seleted-equip="hasSeletedEquip" />
 
-      <el-form-item label="设备图片">
-        <div relative w-90px h-90px rounded flex-center class="img-wrapper">
-          <img v-show="form.image" :src="form.image" w-full h-full>
-          <div class="img-wrapper-trigger-mask">
-            <el-upload
-              :show-file-list="false" :auto-upload="false" :on-change="onBgImageChange"
-              :before-upload="checkImage"
+      <a-divider />
+
+      <a-form-item label="设备图片" name="image">
+        <a-avatar :size="100" shape="square" trigger-type="mask" border="1.5 [var(--color-neutral-5)] dashed">
+          <template #trigger-icon>
+            <a-upload
+              :auto-upload="false"
+              list-type="picture-card"
+              :show-file-list="false"
+              @change="onBgImageChange"
+              @before-upload="checkImageBeforeUpload"
             >
-              <i class="el-icon-camera" icon-btn text-18px />
-            </el-upload>
-          </div>
-        </div>
-      </el-form-item>
+              <template #upload-button>
+                <IconCamera text-18px hover:text-primary />
+              </template>
+            </a-upload>
+          </template>
+          <img v-show="form.image" :src="form.image" h-full w-full>
+        </a-avatar>
+      </a-form-item>
 
-      <el-divider />
+      <a-divider />
 
-      <el-form-item label="X">
-        <el-input-number v-model="form.x" :controls="false" style="width: 100px" @change="changeRect('x')" />
-      </el-form-item>
-      <el-form-item label="Y">
-        <el-input-number v-model="form.y" :controls="false" style="width: 100px" @change="changeRect('y')" />
-      </el-form-item>
-      <el-form-item label="宽">
-        <el-input-number v-model="form.width" :controls="false" style="width: 100px" @change="changeRect('width')" />
-      </el-form-item>
-      <el-form-item label="高">
-        <el-input-number v-model="form.height" :controls="false" style="width: 100px" @change="changeRect('height')" />
-      </el-form-item>
-    </el-form>
+      <a-form-item label="X" name="x">
+        <a-input-number v-model="form.x" hide-button @change="changeRect('x')" />
+      </a-form-item>
+
+      <a-form-item label="Y" name="y">
+        <a-input-number v-model="form.y" hide-button @change="changeRect('y')" />
+      </a-form-item>
+
+      <a-form-item label="宽" name="width">
+        <a-input-number v-model="form.width" hide-button @change="changeRect('width')" />
+      </a-form-item>
+
+      <a-form-item label="高" name="height">
+        <a-input-number v-model="form.height" hide-button @change="changeRect('height')" />
+      </a-form-item>
+    </a-form>
   </div>
 </template>
-
-<style scoped>
-.img-wrapper {
-  border: 1px dashed #dcdfe6;
-  border-radius: 5px;
-}
-
-.img-wrapper-trigger-mask {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  color: white;
-  font-size: 16px;
-  background-color: #1d212999;
-  border-radius: 5px;
-  opacity: 0;
-  transition: all 0.1s cubic-bezier(0, 0, 1, 1);
-}
-
-.img-wrapper:hover .img-wrapper-trigger-mask {
-  opacity: 1;
-}
-</style>
