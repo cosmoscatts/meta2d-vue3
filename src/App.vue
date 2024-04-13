@@ -1,6 +1,8 @@
 <script setup lang="ts">
 createPrimaryColor('purple')
 
+const { visible } = usePreview()
+
 const isViewMounted = useMounted()
 provide('isViewMounted', isViewMounted)
 </script>
@@ -15,7 +17,7 @@ provide('isViewMounted', isViewMounted)
       </div>
       <ContextMenu>
         <div col-span-4 border-x="1 solid" border-base bg-hex-fbfbff dark:bg-hex-182033 h="[calc(100vh-80px)]">
-          <View />
+          <View v-if="!visible" />
         </div>
       </ContextMenu>
       <div col-span-1 h="[calc(100vh-80px)]" px-10px>
