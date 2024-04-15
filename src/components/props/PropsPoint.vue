@@ -43,6 +43,8 @@ const form: any = reactive({
   globalAlpha: 1, // c1
   signalBackground: '', // 小圆点背景 c7
   valueTextColor: '', // 数值文本色 c4
+
+  hasBorder: undefined,
 })
 
 function getPen() {
@@ -91,6 +93,8 @@ function getPen() {
   form.signalBackground = child[6]?.background || '' // 小圆点背景 c7
   form.valueTextColor = child[3]?.textColor || '' // 数值文本色 c4
   form.signalType = signalOptions.find(i => i.label === child[2]?.text)?.value || ''
+
+  form.hasBorder = child[0]?.lineWidth !== 0
 }
 
 // 监听选中不同图元
@@ -137,11 +141,28 @@ function updatePropByTag(prop: string) {
   meta2d.render()
 }
 
+function updateBorder(hasBorder: boolean) {
+  const pen = selections.pen!
+  const [tagName] = [`__${pen.name}_border`]
+  const pens = meta2d.find(tagName)
+  if (pens.length) {
+    pens.forEach((pen) => {
+      const v = { id: pen.id, lineWidth: hasBorder ? 1 : 0 }
+      meta2d.setValue(v)
+    })
+  }
+  meta2d.render()
+}
+
 function changeValue(prop: string) {
   const childIds = selections.pen!.children
   const child = childIds!.map(id => meta2d.findOne(id))
   if (prop === 'equipId') {
     meta2d.setValue({ id: form.id, tags: [form.equipId] }, { render: true })
+    return
+  }
+  if (prop === 'hasBorder') { // c1, c6
+    updateBorder(form.hasBorder)
     return
   }
   if (prop === 'pointId') {
@@ -234,6 +255,10 @@ onMounted(() => {
           <a-option :key="0" :value="0" label="实线" />
           <a-option :key="1" :value="1" label="虚线" />
         </a-select>
+      </a-form-item>
+
+      <a-form-item label="显示线条" name="rule">
+        <a-switch v-model="form.hasBorder" @change="changeValue('hasBorder')" />
       </a-form-item>
 
       <a-form-item label="圆角" name="borderRadius">
