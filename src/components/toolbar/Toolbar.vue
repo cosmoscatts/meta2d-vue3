@@ -30,6 +30,8 @@ onMounted(async () => {
 
     <ToolbarDrawLine />
 
+    <ToolbarAnchor />
+
     <a-divider direction="vertical" />
 
     <ToolbarLineType />

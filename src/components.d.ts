@@ -22,6 +22,7 @@ declare module 'vue' {
     PropsPoint: typeof import('./components/props/PropsPoint.vue')['default']
     SideBar: typeof import('./components/SideBar.vue')['default']
     Toolbar: typeof import('./components/toolbar/Toolbar.vue')['default']
+    ToolbarAnchor: typeof import('./components/toolbar/ToolbarAnchor.vue')['default']
     ToolbarDrawLine: typeof import('./components/toolbar/ToolbarDrawLine.vue')['default']
     ToolbarFile: typeof import('./components/toolbar/ToolbarFile.vue')['default']
     ToolbarFocus: typeof import('./components/toolbar/ToolbarFocus.vue')['default']
