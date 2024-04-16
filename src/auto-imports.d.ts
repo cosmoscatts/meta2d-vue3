@@ -58,6 +58,7 @@ declare global {
   const getActivePinia: typeof import('pinia')['getActivePinia']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
+  const getExtraMeta2d: typeof import('./composables/meta2d/get-extra-meta2d')['getExtraMeta2d']
   const getFileBase64: typeof import('./composables/file')['getFileBase64']
   const getFormArrowInfo: typeof import('./composables/meta2d/arrow')['getFormArrowInfo']
   const getLineTypeInfo: typeof import('./composables/meta2d/line')['getLineTypeInfo']
@@ -402,6 +403,7 @@ declare module 'vue' {
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
+    readonly getExtraMeta2d: UnwrapRef<typeof import('./composables/meta2d/get-extra-meta2d')['getExtraMeta2d']>
     readonly getFileBase64: UnwrapRef<typeof import('./composables/file')['getFileBase64']>
     readonly getFormArrowInfo: UnwrapRef<typeof import('./composables/meta2d/arrow')['getFormArrowInfo']>
     readonly getLineTypeInfo: UnwrapRef<typeof import('./composables/meta2d/line')['getLineTypeInfo']>
@@ -714,6 +716,7 @@ declare module '@vue/runtime-core' {
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
+    readonly getExtraMeta2d: UnwrapRef<typeof import('./composables/meta2d/get-extra-meta2d')['getExtraMeta2d']>
     readonly getFileBase64: UnwrapRef<typeof import('./composables/file')['getFileBase64']>
     readonly getFormArrowInfo: UnwrapRef<typeof import('./composables/meta2d/arrow')['getFormArrowInfo']>
     readonly getLineTypeInfo: UnwrapRef<typeof import('./composables/meta2d/line')['getLineTypeInfo']>

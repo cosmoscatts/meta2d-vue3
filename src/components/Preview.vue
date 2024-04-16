@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { Meta2dData } from '@meta2d/core'
-import { Meta2d } from '@meta2d/core'
+import type { Meta2d, Meta2dData } from '@meta2d/core'
 import dayjs from 'dayjs'
 import { getDefaultOptions } from '~/const'
 
@@ -60,22 +59,28 @@ function mock() {
   updatePointValue()
 }
 
+function createInstance() {
+  previewMeta2d = getExtraMeta2d('meta2d-preview', getDefaultOptions())
+  registerMeta2dPlugins()
+}
+
 watch(visible, (n) => {
   if (n) {
     useTimeoutFn(() => {
-      previewMeta2d = new Meta2d('meta2d-preview', getDefaultOptions())
-      registerMeta2dPlugins()
+      createInstance()
       loadData()
     }, 100)
   }
   else {
     clearTimer()
+    if (previewMeta2d)
+      previewMeta2d.destroy()
   }
 })
 </script>
 
 <template>
-  <a-modal v-model:visible="visible" :footer="false" fullscreen unmount-on-close>
+  <a-modal v-model:visible="visible" :footer="false" fullscreen>
     <template #title>
       <div flex justify-center items-center gap-2 w-full relative>
         <div>图纸预览</div>
