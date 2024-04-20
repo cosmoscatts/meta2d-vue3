@@ -60,7 +60,10 @@ function mock() {
 }
 
 function createInstance() {
-  previewMeta2d = getExtraMeta2d('meta2d-preview', getDefaultOptions())
+  previewMeta2d = getExtraMeta2d(
+    'meta2d-preview',
+    { ...getDefaultOptions(), disableScale: false },
+  )
   registerMeta2dPlugins()
 }
 
