@@ -11,6 +11,7 @@ declare module 'vue' {
     ContextMenu: typeof import('./components/ContextMenu.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
     Graphics: typeof import('./components/Graphics.vue')['default']
+    GraphicsFilter: typeof import('./components/graphics/GraphicsFilter.vue')['default']
     Header: typeof import('./components/Header.vue')['default']
     ListEquip: typeof import('./components/ListEquip.vue')['default']
     Preview: typeof import('./components/Preview.vue')['default']

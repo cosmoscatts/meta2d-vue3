@@ -19,11 +19,14 @@ declare global {
   const SelectionMode: typeof import('./composables/meta2d/selection')['SelectionMode']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const addMeta2dShape: typeof import('./composables/meta2d/add-shape')['addMeta2dShape']
+  const allGraphicsDataKey: typeof import('./composables/meta2d/graphics')['allGraphicsDataKey']
+  const allGraphicsDataNameMap: typeof import('./composables/meta2d/graphics')['allGraphicsDataNameMap']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
   const bindMeta2dActive: typeof import('./composables/meta2d/active')['bindMeta2dActive']
   const checkImageBeforeUpload: typeof import('./composables/file')['checkImageBeforeUpload']
   const colors: typeof import('./composables/theme')['colors']
+  const commonGraphicsDataMap: typeof import('./composables/meta2d/graphics')['commonGraphicsDataMap']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -47,6 +50,7 @@ declare global {
   const debouncedRef: typeof import('@vueuse/core')['debouncedRef']
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
   const defaultGraphicsData: typeof import('./composables/meta2d/graphics')['defaultGraphicsData']
+  const defaultGraphicsDataKey: typeof import('./composables/meta2d/graphics')['defaultGraphicsDataKey']
   const defaultThemeColors: typeof import('./composables/theme')['defaultThemeColors']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
@@ -55,6 +59,7 @@ declare global {
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const extendRef: typeof import('@vueuse/core')['extendRef']
+  const fixedGraphicsDataKey: typeof import('./composables/meta2d/graphics')['fixedGraphicsDataKey']
   const getActivePinia: typeof import('pinia')['getActivePinia']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
@@ -369,11 +374,14 @@ declare module 'vue' {
     readonly Modal: UnwrapRef<typeof import('./composables/arco')['Modal']>
     readonly SelectionMode: UnwrapRef<typeof import('./composables/meta2d/selection')['SelectionMode']>
     readonly addMeta2dShape: UnwrapRef<typeof import('./composables/meta2d/add-shape')['addMeta2dShape']>
+    readonly allGraphicsDataKey: UnwrapRef<typeof import('./composables/meta2d/graphics')['allGraphicsDataKey']>
+    readonly allGraphicsDataNameMap: UnwrapRef<typeof import('./composables/meta2d/graphics')['allGraphicsDataNameMap']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly bindMeta2dActive: UnwrapRef<typeof import('./composables/meta2d/active')['bindMeta2dActive']>
     readonly checkImageBeforeUpload: UnwrapRef<typeof import('./composables/file')['checkImageBeforeUpload']>
     readonly colors: UnwrapRef<typeof import('./composables/theme')['colors']>
+    readonly commonGraphicsDataMap: UnwrapRef<typeof import('./composables/meta2d/graphics')['commonGraphicsDataMap']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -395,6 +403,7 @@ declare module 'vue' {
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
     readonly debouncedRef: UnwrapRef<typeof import('@vueuse/core')['debouncedRef']>
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
+    readonly defaultGraphicsDataKey: UnwrapRef<typeof import('./composables/meta2d/graphics')['defaultGraphicsDataKey']>
     readonly defaultThemeColors: UnwrapRef<typeof import('./composables/theme')['defaultThemeColors']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
@@ -402,6 +411,7 @@ declare module 'vue' {
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
+    readonly fixedGraphicsDataKey: UnwrapRef<typeof import('./composables/meta2d/graphics')['fixedGraphicsDataKey']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getExtraMeta2d: UnwrapRef<typeof import('./composables/meta2d/get-extra-meta2d')['getExtraMeta2d']>
@@ -413,7 +423,6 @@ declare module 'vue' {
     readonly getRandomStr: UnwrapRef<typeof import('./composables/random')['getRandomStr']>
     readonly getSignalTypeValue: UnwrapRef<typeof import('./composables/meta2d/point/signal-type')['getSignalTypeValue']>
     readonly getToArrowInfo: UnwrapRef<typeof import('./composables/meta2d/arrow')['getToArrowInfo']>
-    readonly graphicsData: UnwrapRef<typeof import('./composables/meta2d/graphics')['graphicsData']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
@@ -683,11 +692,14 @@ declare module '@vue/runtime-core' {
     readonly Modal: UnwrapRef<typeof import('./composables/arco')['Modal']>
     readonly SelectionMode: UnwrapRef<typeof import('./composables/meta2d/selection')['SelectionMode']>
     readonly addMeta2dShape: UnwrapRef<typeof import('./composables/meta2d/add-shape')['addMeta2dShape']>
+    readonly allGraphicsDataKey: UnwrapRef<typeof import('./composables/meta2d/graphics')['allGraphicsDataKey']>
+    readonly allGraphicsDataNameMap: UnwrapRef<typeof import('./composables/meta2d/graphics')['allGraphicsDataNameMap']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly bindMeta2dActive: UnwrapRef<typeof import('./composables/meta2d/active')['bindMeta2dActive']>
     readonly checkImageBeforeUpload: UnwrapRef<typeof import('./composables/file')['checkImageBeforeUpload']>
     readonly colors: UnwrapRef<typeof import('./composables/theme')['colors']>
+    readonly commonGraphicsDataMap: UnwrapRef<typeof import('./composables/meta2d/graphics')['commonGraphicsDataMap']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -709,6 +721,7 @@ declare module '@vue/runtime-core' {
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
     readonly debouncedRef: UnwrapRef<typeof import('@vueuse/core')['debouncedRef']>
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
+    readonly defaultGraphicsDataKey: UnwrapRef<typeof import('./composables/meta2d/graphics')['defaultGraphicsDataKey']>
     readonly defaultThemeColors: UnwrapRef<typeof import('./composables/theme')['defaultThemeColors']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
@@ -716,6 +729,7 @@ declare module '@vue/runtime-core' {
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
+    readonly fixedGraphicsDataKey: UnwrapRef<typeof import('./composables/meta2d/graphics')['fixedGraphicsDataKey']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getExtraMeta2d: UnwrapRef<typeof import('./composables/meta2d/get-extra-meta2d')['getExtraMeta2d']>
@@ -727,7 +741,6 @@ declare module '@vue/runtime-core' {
     readonly getRandomStr: UnwrapRef<typeof import('./composables/random')['getRandomStr']>
     readonly getSignalTypeValue: UnwrapRef<typeof import('./composables/meta2d/point/signal-type')['getSignalTypeValue']>
     readonly getToArrowInfo: UnwrapRef<typeof import('./composables/meta2d/arrow')['getToArrowInfo']>
-    readonly graphicsData: UnwrapRef<typeof import('./composables/meta2d/graphics')['graphicsData']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
