@@ -261,14 +261,38 @@ function bottom() {
 }
 
 const isViewMounted = inject('isViewMounted') as Ref<boolean>
+const isTranslating = ref(false)
+const show = computed({
+  get() {
+    return showContextMenu.value
+  },
+  set(val) {
+    if (val && isTranslating.value) // 正在拖动画布，忽略状态改变
+      return false
+
+    showContextMenu.value = val
+  },
+})
+
+const timer = shallowRef<NodeJS.Timeout | null>(null)
 onMounted(async () => {
   await until(isViewMounted)
   setLockedState()
+
+  meta2d.on('translate', () => {
+    isTranslating.value = true
+    if (timer.value)
+      clearTimeout(timer.value)
+    timer.value = setTimeout(() => {
+      isTranslating.value = false
+      timer.value = null
+    }, 200)
+  })
 })
 </script>
 
 <template>
-  <a-trigger v-model:popup-visible="showContextMenu" trigger="contextMenu" align-point @popup-visible-change="setLockedState">
+  <a-trigger v-model:popup-visible="show" trigger="contextMenu" align-point @popup-visible-change="setLockedState">
     <slot />
     <template #content>
       <div w-160px bg="[var(--color-bg-popup)]" border="1 base" py-2px shadow-lg>
@@ -285,7 +309,7 @@ onMounted(async () => {
           下一个图层
         </a-doption>
 
-        <div my-2px border-t-1 border-solid border-base />
+        <div my-2px border-t-1 border-base border-solid />
 
         <a-doption v-if="!hasLockedFile && !hasPen" @click="lockFile">
           锁定图纸
@@ -312,7 +336,7 @@ onMounted(async () => {
           删除
         </a-doption>
 
-        <div my-2px border-t-1 border-solid border-base />
+        <div my-2px border-t-1 border-base border-solid />
 
         <a-doption @click="undo">
           <div w-full flex items-center justify-between>
@@ -331,7 +355,7 @@ onMounted(async () => {
           </div>
         </a-doption>
 
-        <div my-2px border-t-1 border-solid border-base />
+        <div my-2px border-t-1 border-base border-solid />
 
         <a-doption @click="cut">
           <div flex items-center justify-between>
