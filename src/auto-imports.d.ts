@@ -251,6 +251,7 @@ declare global {
   const useMediaQuery: typeof import('@vueuse/core')['useMediaQuery']
   const useMemoize: typeof import('@vueuse/core')['useMemoize']
   const useMemory: typeof import('@vueuse/core')['useMemory']
+  const useMeta2dMqtt: typeof import('./composables/meta2d/mqtt')['useMeta2dMqtt']
   const useMeta2dSelection: typeof import('./composables/meta2d/selection')['useMeta2dSelection']
   const useMounted: typeof import('@vueuse/core')['useMounted']
   const useMouse: typeof import('@vueuse/core')['useMouse']
@@ -574,6 +575,7 @@ declare module 'vue' {
     readonly useMediaQuery: UnwrapRef<typeof import('@vueuse/core')['useMediaQuery']>
     readonly useMemoize: UnwrapRef<typeof import('@vueuse/core')['useMemoize']>
     readonly useMemory: UnwrapRef<typeof import('@vueuse/core')['useMemory']>
+    readonly useMeta2dMqtt: UnwrapRef<typeof import('./composables/meta2d/mqtt')['useMeta2dMqtt']>
     readonly useMeta2dSelection: UnwrapRef<typeof import('./composables/meta2d/selection')['useMeta2dSelection']>
     readonly useMounted: UnwrapRef<typeof import('@vueuse/core')['useMounted']>
     readonly useMouse: UnwrapRef<typeof import('@vueuse/core')['useMouse']>
@@ -887,6 +889,7 @@ declare module '@vue/runtime-core' {
     readonly useMediaQuery: UnwrapRef<typeof import('@vueuse/core')['useMediaQuery']>
     readonly useMemoize: UnwrapRef<typeof import('@vueuse/core')['useMemoize']>
     readonly useMemory: UnwrapRef<typeof import('@vueuse/core')['useMemory']>
+    readonly useMeta2dMqtt: UnwrapRef<typeof import('./composables/meta2d/mqtt')['useMeta2dMqtt']>
     readonly useMeta2dSelection: UnwrapRef<typeof import('./composables/meta2d/selection')['useMeta2dSelection']>
     readonly useMounted: UnwrapRef<typeof import('@vueuse/core')['useMounted']>
     readonly useMouse: UnwrapRef<typeof import('@vueuse/core')['useMouse']>
