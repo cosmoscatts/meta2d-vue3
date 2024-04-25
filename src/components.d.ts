@@ -18,6 +18,7 @@ declare module 'vue' {
     PropsEquip: typeof import('./components/props/PropsEquip.vue')['default']
     PropsEquipAutoCreatePoints: typeof import('./components/props/PropsEquipAutoCreatePoints.vue')['default']
     PropsFile: typeof import('./components/props/PropsFile.vue')['default']
+    PropsLine: typeof import('./components/props/PropsLine.vue')['default']
     PropsPen: typeof import('./components/props/PropsPen.vue')['default']
     PropsPoint: typeof import('./components/props/PropsPoint.vue')['default']
     SideBar: typeof import('./components/SideBar.vue')['default']

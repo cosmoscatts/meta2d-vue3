@@ -119,7 +119,7 @@ onMounted(() => {
 
 <template>
   <div px-10px py-15px>
-    <div mb-4 font-bold text-xl>
+    <div mb-4 text-xl font-bold>
       图元设置
     </div>
 

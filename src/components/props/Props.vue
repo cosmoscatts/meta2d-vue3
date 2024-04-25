@@ -8,5 +8,6 @@ const { selections } = useMeta2dSelection()
     <PropsPen v-else-if="selections.mode === SelectionMode.Pen" />
     <PropsEquip v-else-if="selections.mode === SelectionMode.Equip" />
     <PropsPoint v-else-if="selections.mode === SelectionMode.Point" />
+    <PropsLine v-else-if="selections.mode === SelectionMode.Line" />
   </div>
 </template>

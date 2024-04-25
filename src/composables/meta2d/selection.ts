@@ -5,6 +5,7 @@ export enum SelectionMode {
   Pen = 'pen',
   Equip = 'equip',
   Point = 'point',
+  Line = 'line',
 }
 
 const selections = reactive<{
@@ -39,6 +40,8 @@ export function useMeta2dSelection() {
       selections.mode = SelectionMode.Equip
     else if (penName.startsWith('point-combine'))
       selections.mode = SelectionMode.Point
+    else if (pen.type === 1)
+      selections.mode = SelectionMode.Line
     else
       selections.mode = SelectionMode.Pen
 
