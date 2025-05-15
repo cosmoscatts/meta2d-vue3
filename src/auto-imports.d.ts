@@ -376,7 +376,7 @@ declare global {
   export type { SelectionMode, Selections } from './composables/meta2d/selection'
   import('./composables/meta2d/selection')
   // @ts-ignore
-  export type { PointData } from './composables/meta2d/set-data'
+  export type { PointData } from './composables/meta2d/setPointData'
   import('./composables/meta2d/setPointData')
   // @ts-ignore
   export type { ThemeColor } from './composables/theme'

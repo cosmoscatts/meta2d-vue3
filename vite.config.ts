@@ -1,10 +1,10 @@
 import path from 'node:path';
-import { defineConfig } from 'vite';
 import Vue from '@vitejs/plugin-vue';
-import AutoImport from 'unplugin-auto-import/vite';
-import Components from 'unplugin-vue-components/vite';
-import Icons from 'unplugin-icons/vite';
 import Unocss from 'unocss/vite';
+import AutoImport from 'unplugin-auto-import/vite';
+import Icons from 'unplugin-icons/vite';
+import Components from 'unplugin-vue-components/vite';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
   base: './',
