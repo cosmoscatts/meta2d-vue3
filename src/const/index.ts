@@ -1,2 +1,2 @@
-export * from './graphics'
-export * from './options'
+export * from './graphics';
+export * from './options';

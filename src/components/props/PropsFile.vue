@@ -51,8 +51,9 @@ function onChangeBackground() {
   if (form.background
     && meta2d.store.data.background
     && form.background.toLowerCase() === meta2d.store.data.background.toLowerCase()
-  )
+  ) {
     return
+  }
 
   meta2d.setBackgroundColor(form.background)
   ;(meta2d.store as any).patchFlagsBackground = true
@@ -99,7 +100,7 @@ function onChangeOptions() {
 
 <template>
   <div px-10px py-15px>
-    <div mb-4 font-bold text-xl>
+    <div mb-4 text-xl font-bold>
       图纸设置
     </div>
 

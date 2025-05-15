@@ -1,4 +1,4 @@
-import type { Meta2d } from '@meta2d/core'
+import type { Meta2d } from '@meta2d/core';
 
 /**
  * 连接 MQTT
@@ -16,8 +16,8 @@ export function useMeta2dMqtt() {
         // 如果设置 customClientId = true，不随机生成，使用用户自定义的固定的 clientId
         customClientId: false,
       },
-    }
-    meta2d.connectMqtt(params)
+    };
+    meta2d.connectMqtt(params);
 
     // 自定义数据格式
     meta2d.socketFn = (_e: string, _context?: {
@@ -31,16 +31,16 @@ export function useMeta2dMqtt() {
 
       // return false //表示仅执行自定义的回调函数方法
       // return true //表示除了执行自定义的回调方法外，还会执行核心库方法
-      return false
-    }
+      return false;
+    };
   }
 
   function close() {
-    meta2d.closeMqtt()
+    meta2d.closeMqtt();
   }
 
   return {
     init,
     close,
-  }
+  };
 }

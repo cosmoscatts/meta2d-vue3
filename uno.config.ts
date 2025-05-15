@@ -2,12 +2,11 @@ import {
   defineConfig,
   presetAttributify,
   presetIcons,
-  presetUno,
   presetWebFonts,
-  presetWind,
+  presetWind3,
   transformerDirectives,
   transformerVariantGroup,
-} from 'unocss'
+} from 'unocss';
 
 export default defineConfig({
   shortcuts: [
@@ -35,11 +34,10 @@ export default defineConfig({
   ],
   presets: [
     presetAttributify(),
-    presetUno(),
+    presetWind3(),
     presetIcons({
       scale: 1.2,
     }),
-    presetWind(),
     presetWebFonts({
       fonts: {
         sans: 'Inter',
@@ -70,4 +68,4 @@ export default defineConfig({
     'i-fluent:location-ripple-16-regular',
     'i-fluent:temperature-16-regular',
   ],
-})
+});

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-const { getScaleByInterval } = useScale()
-const { visible, preview } = usePreview()
+const { getScaleByInterval } = useScale();
+const { visible, preview } = usePreview();
 
 watch(visible, (n, o) => { // 解决打开预览再关闭预览后 View 缩放比例不更新的问题
   if (!n && o)
-    getScaleByInterval()
-})
+    getScaleByInterval();
+});
 </script>
 
 <template>

@@ -16,5 +16,5 @@ export function useConfirm(opts?: ConfirmProps) {
     okText: opts?.okText || '确定',
     cancelText: opts?.cancelText || '取消',
     onOk: opts?.ok,
-  })
+  });
 }

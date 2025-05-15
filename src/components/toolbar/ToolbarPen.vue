@@ -1,14 +1,14 @@
 <script setup lang="ts">
-const selected = ref(false)
+const selected = ref(false);
 
 function onClick() {
-  selected.value = !selected.value
+  selected.value = !selected.value;
 
   if (selected.value)
-    meta2d.drawLine('curve')
+    meta2d.drawLine('curve');
 
   else
-    meta2d.drawLine()
+    meta2d.drawLine();
 }
 </script>
 

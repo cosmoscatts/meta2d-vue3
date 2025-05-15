@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { s8 } from '@meta2d/core'
-import type { FileItem } from '@arco-design/web-vue/es/upload/interfaces'
-import { getDefaultEquipInfo } from '~/const'
+import { s8 } from '@meta2d/core';
+import type { FileItem } from '@arco-design/web-vue/es/upload/interfaces';
+import { getDefaultEquipInfo } from '~/const';
 
-const uploadEquipImages = ref<string[]>([])
+const uploadEquipImages = ref<string[]>([]);
 
 async function onImageChange(_: FileItem[], currentFile: FileItem) {
-  const imageUrl = await getFileBase64(currentFile.file!)
+  const imageUrl = await getFileBase64(currentFile.file!);
   uploadEquipImages.value = [
     ...uploadEquipImages.value,
     imageUrl,
-  ]
-  Message.success('上传成功')
+  ];
+  Message.success('上传成功');
 }
 
-const { defaultNames, defaultImages } = getDefaultEquipInfo()
+const { defaultNames, defaultImages } = getDefaultEquipInfo();
 
 const equips = computed(() => {
   return [
@@ -33,9 +33,9 @@ const equips = computed(() => {
         name: 'image',
         disableInput: true,
       },
-    }
-  })
-})
+    };
+  });
+});
 </script>
 
 <template>

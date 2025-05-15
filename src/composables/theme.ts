@@ -13,7 +13,7 @@ export const colors: [string, string, string][] = [
   ['pinkpurple', '青春紫', '#D91AD9'],
   ['gray', '中性灰', '#86909C'],
   ['magenta', '品红', '#F5319D'],
-]
+];
 
 export interface ThemeColor {
   prop: string
@@ -28,13 +28,13 @@ export const defaultThemeColors: ThemeColor[] = colors.map(([prop, name, hex]) =
     name,
     hex,
     rgb: `rgb(var(--${prop}-6))`,
-  }
-})
+  };
+});
 
 export function createPrimaryColor(colorProp: string) {
   if (!defaultThemeColors.map(i => i.prop).includes(colorProp))
-    return
+    return;
   Array.from({ length: 10 }).forEach((_, index) => {
-    document.body.style.setProperty(`--primary-${index + 1}`, `var(--${colorProp}-${index + 1})`)
-  })
+    document.body.style.setProperty(`--primary-${index + 1}`, `var(--${colorProp}-${index + 1})`);
+  });
 }

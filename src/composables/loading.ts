@@ -1,21 +1,21 @@
 export function useLoading(initValue = false) {
-  const loading = ref(initValue)
+  const loading = ref(initValue);
 
   function setLoading(value: boolean) {
-    loading.value = value
+    loading.value = value;
   }
 
   return {
     loading,
     setLoading,
     startLoading() {
-      setLoading(true)
+      setLoading(true);
     },
     endLoading() {
-      setLoading(false)
+      setLoading(false);
     },
     toggleLoading() {
-      setLoading(!loading.value)
+      setLoading(!loading.value);
     },
-  }
+  };
 }

@@ -1,9 +1,10 @@
-import { type Pen, deepClone } from '@meta2d/core'
+import type { Pen } from '@meta2d/core';
+import { deepClone } from '@meta2d/core';
 
 export function addMeta2dShape(event: DragEvent | MouseEvent, name: string) {
-  event.stopPropagation()
+  event.stopPropagation();
 
-  let data
+  let data;
 
   if (name === 'text') {
     // 构建一个文本图元
@@ -12,7 +13,7 @@ export function addMeta2dShape(event: DragEvent | MouseEvent, name: string) {
       width: 100,
       height: 20,
       name: 'text',
-    }
+    };
   }
   else if (name === 'line') {
     // 构建一个直线图元
@@ -26,14 +27,14 @@ export function addMeta2dShape(event: DragEvent | MouseEvent, name: string) {
       name: 'line',
       lineName: 'line',
       type: 1,
-    }
+    };
   }
 
   if (event instanceof DragEvent) {
     if (event.dataTransfer)
-      event.dataTransfer.setData('Meta2d', JSON.stringify(data))
+      event.dataTransfer.setData('Meta2d', JSON.stringify(data));
   }
   else {
-    meta2d.canvas.addCaches = deepClone([data]) as Pen[]
+    meta2d.canvas.addCaches = deepClone([data]) as Pen[];
   }
 }

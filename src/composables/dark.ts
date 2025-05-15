@@ -1,13 +1,13 @@
-export const isDark = useDark()
+export const isDark = useDark();
 
 export function toggleDark() {
-  isDark.value = !isDark.value
+  isDark.value = !isDark.value;
 }
 
 export function createArcoTheme() {
   if (isDark.value)
-    document.body.setAttribute('arco-theme', 'dark')
-  else document.body.removeAttribute('arco-theme')
+    document.body.setAttribute('arco-theme', 'dark');
+  else document.body.removeAttribute('arco-theme');
 }
 
-watch(isDark, createArcoTheme, { immediate: true })
+watch(isDark, createArcoTheme, { immediate: true });

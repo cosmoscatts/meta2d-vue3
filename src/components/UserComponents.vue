@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { s8 } from '@meta2d/core'
+import { s8 } from '@meta2d/core';
 
-const { templates, loadTemplates } = useUserComponents()
+const { templates, loadTemplates } = useUserComponents();
 
-loadTemplates()
+loadTemplates();
 
 const templateComponents = computed(() => {
   return templates.value.map(({ id, image, name, data }, idx) => {
@@ -15,24 +15,24 @@ const templateComponents = computed(() => {
       data,
       template: true,
       templateId: id,
-    }
-  })
-})
+    };
+  });
+});
 
 function removeTemplate(id: string) {
   useConfirm({
     title: '提示',
     content: '确定要删除该组件吗？',
     ok() {
-      const dataStr = localStorage.getItem('meta2d-templates')
+      const dataStr = localStorage.getItem('meta2d-templates');
       if (dataStr) {
-        const data = JSON.parse(dataStr)
-        localStorage.setItem('meta2d-templates', JSON.stringify(data.filter((i: UserTemplate) => i.id !== id)))
-        loadTemplates()
+        const data = JSON.parse(dataStr);
+        localStorage.setItem('meta2d-templates', JSON.stringify(data.filter((i: UserTemplate) => i.id !== id)));
+        loadTemplates();
       }
-      Message.success('删除成功')
+      Message.success('删除成功');
     },
-  })
+  });
 }
 </script>
 

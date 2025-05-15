@@ -1,294 +1,294 @@
 <script setup lang="ts">
-import type { Pen } from '@meta2d/core'
+import type { Pen } from '@meta2d/core';
 
-const { selections } = useMeta2dSelection()
+const { selections } = useMeta2dSelection();
 
 // 是否选中图元
-const hasPen = computed(() => !!selections.pens?.length)
+const hasPen = computed(() => !!selections.pens?.length);
 // 是否选中多个图元
 const isPens = computed(() => {
-  const length = selections.pens?.length || 0
-  return hasPen.value && length > 1
-})
+  const length = selections.pens?.length || 0;
+  return hasPen.value && length > 1;
+});
 
-const showContextMenu = ref(false)
+const showContextMenu = ref(false);
 function closeContextMenu() {
-  showContextMenu.value = false
+  showContextMenu.value = false;
 }
 
-const hasLocked = ref(false)
-const hasLockedFile = ref(false) // 是否锁定整张图纸
+const hasLocked = ref(false);
+const hasLockedFile = ref(false); // 是否锁定整张图纸
 function setLockedState() {
   if (!meta2d)
-    return
+    return;
 
-  const pens = selections.pens || []
+  const pens = selections.pens || [];
   if (!pens.length) {
-    const locked = meta2d.data().locked || 0
-    hasLockedFile.value = locked > 0
-    return
+    const locked = meta2d.data().locked || 0;
+    hasLockedFile.value = locked > 0;
+    return;
   }
 
   // 只有所有选中的都为锁定状态，才显示已锁定，存在部分锁定的情况则默认为未锁定
-  hasLocked.value = pens.map(pen => pen.locked || 0).filter(i => i > 0).length === pens.length
+  hasLocked.value = pens.map(pen => pen.locked || 0).filter(i => i > 0).length === pens.length;
 }
 
-const showCombine = computed(() => isPens.value)
+const showCombine = computed(() => isPens.value);
 const showUncombine = computed(() => {
   if (!hasPen.value)
-    return false
+    return false;
   if (isPens.value)
-    return false
+    return false;
 
-  const pen = selections.pen
+  const pen = selections.pen;
   if (!pen?.children?.length)
-    return false
-  return true
-})
+    return false;
+  return true;
+});
 
 function remove() {
-  closeContextMenu()
+  closeContextMenu();
 
   if (!meta2d)
-    return
-  const pens = selections.pens
+    return;
+  const pens = selections.pens;
   if (!pens?.length)
-    return
+    return;
 
-  const hasLockedPen = pens.map(pen => pen.locked || 0).filter(i => i > 0).length
+  const hasLockedPen = pens.map(pen => pen.locked || 0).filter(i => i > 0).length;
   if (!hasLockedPen) {
-    meta2d.delete(pens as Pen[])
-    return
+    meta2d.delete(pens as Pen[]);
+    return;
   }
 
   useConfirm({
     title: '提示',
     content: '当前选中存在锁定图元，确定要删除吗？',
     ok() {
-      meta2d.delete(pens as Pen[], true)
+      meta2d.delete(pens as Pen[], true);
     },
-  })
+  });
 }
 
 function redo() {
-  closeContextMenu()
+  closeContextMenu();
 
   if (!meta2d)
-    return
-  meta2d.redo()
+    return;
+  meta2d.redo();
 }
 
 function undo() {
-  closeContextMenu()
+  closeContextMenu();
 
   if (!meta2d)
-    return
-  meta2d.undo()
+    return;
+  meta2d.undo();
 }
 
 function lock() {
-  closeContextMenu()
+  closeContextMenu();
 
   if (!meta2d)
-    return
+    return;
   if (!hasPen.value)
-    return
+    return;
 
   // 将所有选中的图元锁定
-  const pens = selections.pens || []
+  const pens = selections.pens || [];
   pens.forEach((pen) => {
     meta2d.setValue({
       id: pen?.id,
       locked: 2,
-    })
-  })
-  hasLocked.value = true
-  meta2d.render()
+    });
+  });
+  hasLocked.value = true;
+  meta2d.render();
 }
 
 function unlock() {
-  closeContextMenu()
+  closeContextMenu();
 
   if (!meta2d)
-    return
+    return;
   if (!hasPen.value)
-    return
+    return;
 
   // 将所有选中的图元解锁
-  const pens = selections.pens || []
+  const pens = selections.pens || [];
   pens.forEach((pen) => {
     meta2d.setValue({
       id: pen?.id,
       locked: 0,
-    })
-  })
-  hasLocked.value = false
-  meta2d.render()
+    });
+  });
+  hasLocked.value = false;
+  meta2d.render();
 }
 
 function lockFile() {
-  closeContextMenu()
+  closeContextMenu();
 
   if (!meta2d)
-    return
+    return;
   if (hasPen.value)
-    return
+    return;
   // 没有选中则锁定整张图纸
   useConfirm({
     title: '提示',
     content: '确定要将整张图纸锁定吗？',
     ok() {
-      meta2d.lock(2)
-      hasLockedFile.value = true
+      meta2d.lock(2);
+      hasLockedFile.value = true;
     },
-  })
+  });
 }
 
 function unlockFile() {
-  closeContextMenu()
+  closeContextMenu();
 
   if (!meta2d)
-    return
+    return;
   if (hasPen.value)
-    return
+    return;
   // 没有选中则锁定整张图纸
   useConfirm({
     title: '提示',
     content: '确定要将整张图纸解锁吗？',
     ok() {
-      meta2d.lock(0)
-      hasLockedFile.value = false
+      meta2d.lock(0);
+      hasLockedFile.value = false;
     },
-  })
+  });
 }
 
 function combine() {
-  closeContextMenu()
+  closeContextMenu();
 
   if (!meta2d)
-    return
+    return;
   if (!isPens.value)
-    return
+    return;
 
-  meta2d.combine(selections.pens as Pen[])
+  meta2d.combine(selections.pens as Pen[]);
 }
 
 function uncombine() {
-  closeContextMenu()
+  closeContextMenu();
 
   if (!meta2d)
-    return
-  const pen = selections.pen
+    return;
+  const pen = selections.pen;
   if (!pen?.children?.length)
-    return
-  meta2d.uncombine(pen as Pen)
+    return;
+  meta2d.uncombine(pen as Pen);
 }
 
 function cut() {
-  closeContextMenu()
+  closeContextMenu();
 
   if (!meta2d)
-    return
+    return;
   if (!hasPen.value) {
-    meta2d.cut()
-    return
+    meta2d.cut();
+    return;
   }
-  meta2d.cut(selections.pens as Pen[])
+  meta2d.cut(selections.pens as Pen[]);
 }
 
 function copy() {
-  closeContextMenu()
+  closeContextMenu();
 
   if (!meta2d)
-    return
+    return;
   if (!hasPen.value) {
-    meta2d.copy()
-    return
+    meta2d.copy();
+    return;
   }
-  meta2d.copy(selections.pens as Pen[])
+  meta2d.copy(selections.pens as Pen[]);
 }
 
 function paste() {
-  closeContextMenu()
+  closeContextMenu();
 
   if (!meta2d)
-    return
-  meta2d.paste()
+    return;
+  meta2d.paste();
 }
 
 function up() {
-  closeContextMenu()
+  closeContextMenu();
 
   if (!meta2d)
-    return
+    return;
   if (!hasPen.value || isPens.value)
-    return
+    return;
 
-  meta2d.up(selections.pen as Pen)
+  meta2d.up(selections.pen as Pen);
 }
 
 function down() {
-  closeContextMenu()
+  closeContextMenu();
 
   if (!meta2d)
-    return
+    return;
   if (!hasPen.value || isPens.value)
-    return
+    return;
 
-  meta2d.down(selections.pen as Pen)
+  meta2d.down(selections.pen as Pen);
 }
 
 function top() {
-  closeContextMenu()
+  closeContextMenu();
 
   if (!meta2d)
-    return
+    return;
   if (!hasPen.value || isPens.value)
-    return
+    return;
 
-  meta2d.top(selections.pen as Pen)
+  meta2d.top(selections.pen as Pen);
 }
 
 function bottom() {
-  closeContextMenu()
+  closeContextMenu();
 
   if (!meta2d)
-    return
+    return;
   if (!hasPen.value || isPens.value)
-    return
+    return;
 
-  meta2d.bottom(selections.pen as Pen)
+  meta2d.bottom(selections.pen as Pen);
 }
 
-const isViewMounted = inject('isViewMounted') as Ref<boolean>
-const isTranslating = ref(false)
+const isViewMounted = inject('isViewMounted') as Ref<boolean>;
+const isTranslating = ref(false);
 const show = computed({
   get() {
-    return showContextMenu.value
+    return showContextMenu.value;
   },
   set(val) {
     if (val && isTranslating.value) // 正在拖动画布，忽略状态改变
-      return false
+      return false;
 
-    showContextMenu.value = val
+    showContextMenu.value = val;
   },
-})
+});
 
-const timer = shallowRef<NodeJS.Timeout | null>(null)
+const timer = shallowRef<NodeJS.Timeout | null>(null);
 onMounted(async () => {
-  await until(isViewMounted)
-  setLockedState()
+  await until(isViewMounted);
+  setLockedState();
 
   meta2d.on('translate', () => {
-    isTranslating.value = true
+    isTranslating.value = true;
     if (timer.value)
-      clearTimeout(timer.value)
+      clearTimeout(timer.value);
     timer.value = setTimeout(() => {
-      isTranslating.value = false
-      timer.value = null
-    }, 200)
-  })
-})
+      isTranslating.value = false;
+      timer.value = null;
+    }, 200);
+  });
+});
 </script>
 
 <template>

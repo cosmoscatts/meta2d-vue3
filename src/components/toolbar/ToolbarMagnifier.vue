@@ -1,16 +1,16 @@
 <script setup lang="ts">
-const showMagnifier = ref(false)
+const showMagnifier = ref(false);
 
 function toggle() {
-  showMagnifier.value = !showMagnifier.value
+  showMagnifier.value = !showMagnifier.value;
 }
 
 watch(showMagnifier, (n) => {
   if (n)
-    meta2d.showMagnifier()
+    meta2d.showMagnifier();
   else
-    meta2d.hideMagnifier()
-})
+    meta2d.hideMagnifier();
+});
 </script>
 
 <template>

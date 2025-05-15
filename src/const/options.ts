@@ -15,10 +15,10 @@ export enum defaultBackgroundColorMap {
   LIGHT = '#fbfbff',
 }
 
-export const getDefaultGridColor = () => isDark.value ? defaultGridColorMap.DARK : defaultGridColorMap.LIGHT
-export const getDefaultRuleColor = () => isDark.value ? defaultRuleColorMap.DARK : defaultRuleColorMap.LIGHT
-export const getDefaultPenColor = () => isDark.value ? defaultPenColorMap.DARK : defaultPenColorMap.LIGHT
-export const getDefaultBackgroundColor = () => isDark.value ? defaultBackgroundColorMap.DARK : defaultBackgroundColorMap.LIGHT
+export const getDefaultGridColor = () => isDark.value ? defaultGridColorMap.DARK : defaultGridColorMap.LIGHT;
+export const getDefaultRuleColor = () => isDark.value ? defaultRuleColorMap.DARK : defaultRuleColorMap.LIGHT;
+export const getDefaultPenColor = () => isDark.value ? defaultPenColorMap.DARK : defaultPenColorMap.LIGHT;
+export const getDefaultBackgroundColor = () => isDark.value ? defaultBackgroundColorMap.DARK : defaultBackgroundColorMap.LIGHT;
 
 export function getDefaultOptions() {
   return {
@@ -32,5 +32,5 @@ export function getDefaultOptions() {
     background: getDefaultBackgroundColor(),
     activeColor: '#722ED1',
     hoverColor: '#A871E3',
-  }
+  };
 }

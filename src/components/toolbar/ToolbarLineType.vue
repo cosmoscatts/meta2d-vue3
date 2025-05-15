@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const { currentLineType, lineTypes, changeLineType } = getLineTypeInfo()
+const { currentLineType, lineTypes, changeLineType } = getLineTypeInfo();
 
-const svgFillColor = computed(() => ['#232323', '#f3f3f3'][Number(isDark.value)])
+const svgFillColor = computed(() => ['#232323', '#f3f3f3'][Number(isDark.value)]);
 </script>
 
 <template>

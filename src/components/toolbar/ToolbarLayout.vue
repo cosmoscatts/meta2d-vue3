@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { Pen } from '@meta2d/core'
+import type { Pen } from '@meta2d/core';
 
-const { selections } = useMeta2dSelection()
+const { selections } = useMeta2dSelection();
 
 function layout() {
   if (selections.pens?.length && selections.pens.length > 1) {
-    meta2d.layout(selections.pens as Pen[])
-    return
+    meta2d.layout(selections.pens as Pen[]);
+    return;
   }
-  meta2d.layout()
+  meta2d.layout();
 }
 </script>
 

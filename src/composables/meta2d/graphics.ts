@@ -1,4 +1,4 @@
-import { activity, baseShape, errorTree, flow, mind, point, timeAndClass } from '~/const'
+import { activity, baseShape, errorTree, flow, mind, point, timeAndClass } from '~/const';
 
 export const defaultGraphicsDataKey = [
   'baseShape',
@@ -8,7 +8,7 @@ export const defaultGraphicsDataKey = [
   'flow',
   'mind',
   'timeAndClass',
-]
+];
 
 export const commonGraphicsDataMap = {
   activity,
@@ -18,9 +18,9 @@ export const commonGraphicsDataMap = {
   flow,
   mind,
   timeAndClass,
-} as any
+} as any;
 
-export const fixedGraphicsDataKey = ['baseShape']
+export const fixedGraphicsDataKey = ['baseShape'];
 
 export const allGraphicsDataNameMap = {
   baseShape: '基本形状',
@@ -30,6 +30,6 @@ export const allGraphicsDataNameMap = {
   flow: '流程图',
   mind: '脑图',
   timeAndClass: '时序图和类图',
-}
+};
 
-export const allGraphicsDataKey = Object.keys(allGraphicsDataNameMap)
+export const allGraphicsDataKey = Object.keys(allGraphicsDataNameMap);

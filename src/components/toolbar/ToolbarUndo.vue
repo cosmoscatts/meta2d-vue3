@@ -1,6 +1,6 @@
 <script setup lang="ts">
 function undo() {
-  meta2d.undo()
+  meta2d.undo();
 }
 </script>
 

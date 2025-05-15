@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { deepClone } from '@meta2d/core'
-import logo from '/public/favicon.ico'
-import { version } from '../../package.json'
+import { deepClone } from '@meta2d/core';
+import logo from '/public/favicon.ico';
+import { version } from '../../package.json';
 
-const toggleTheme = toggleDark
+const toggleTheme = toggleDark;
 
-const { getScaleByInterval } = useScale()
+const { getScaleByInterval } = useScale();
 
 function save() {
-  Message.success('图纸数据已保存成功')
-  const data = deepClone(meta2d.data())
-  localStorage.setItem('meta2d', JSON.stringify(data))
+  Message.success('图纸数据已保存成功');
+  const data = deepClone(meta2d.data());
+  localStorage.setItem('meta2d', JSON.stringify(data));
 }
 
 function clear() {
@@ -18,54 +18,54 @@ function clear() {
     title: '提示',
     content: '确定要清空图纸吗？',
     ok() {
-      meta2d.clear()
-      Message.success('清空图纸成功')
-      getScaleByInterval()
+      meta2d.clear();
+      Message.success('清空图纸成功');
+      getScaleByInterval();
     },
-  })
+  });
 }
 
-const refForm = ref()
-const visible = ref(false)
+const refForm = ref();
+const visible = ref(false);
 const form = reactive({
   name: '',
-})
-const { loadTemplates } = useUserComponents()
+});
+const { loadTemplates } = useUserComponents();
 
 function openModal() {
-  form.name = ''
-  visible.value = true
+  form.name = '';
+  visible.value = true;
 }
 
 async function handleBeforeOk() {
-  const errors = await refForm.value.validate()
+  const errors = await refForm.value.validate();
   if (errors)
-    return false
-  return true
+    return false;
+  return true;
 }
 
 function saveAsTemplate() {
-  const isInfinity = (val?: number) => !Number.isFinite(val)
-  const data = meta2d.toComponent()
+  const isInfinity = (val?: number) => !Number.isFinite(val);
+  const data = meta2d.toComponent();
   if (Array.isArray(data)) {
-    const { width, height } = data[0]
+    const { width, height } = data[0];
     if ([width, height].some(isInfinity)) {
-      Message.error('当前组态没有内容')
-      return
+      Message.error('当前组态没有内容');
+      return;
     }
   }
-  const image = meta2d.toPng(10)
-  const cacheStr = localStorage.getItem('meta2d-templates')
-  let caches = cacheStr ? JSON.parse(cacheStr) : undefined
+  const image = meta2d.toPng(10);
+  const cacheStr = localStorage.getItem('meta2d-templates');
+  let caches = cacheStr ? JSON.parse(cacheStr) : undefined;
 
   if (!caches)
-    caches = []
+    caches = [];
 
-  caches = [...caches, { id: getRandomStr(6), name: form.name, data, image }]
-  localStorage.setItem('meta2d-templates', JSON.stringify(caches))
-  loadTemplates()
-  Message.success('另存为组件成功')
-  visible.value = false
+  caches = [...caches, { id: getRandomStr(6), name: form.name, data, image }];
+  localStorage.setItem('meta2d-templates', JSON.stringify(caches));
+  loadTemplates();
+  Message.success('另存为组件成功');
+  visible.value = false;
 }
 </script>
 

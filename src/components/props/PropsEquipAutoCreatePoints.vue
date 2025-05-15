@@ -1,136 +1,136 @@
 <script setup lang="ts">
-import { s8 } from '@meta2d/core'
-import type { Pen } from '@meta2d/core'
-import type { WritableComputedRef } from 'vue'
-import { createPointOptions } from './mock'
-import { createBaseCombinePoint, signalInfoMap } from '~/const'
+import { s8 } from '@meta2d/core';
+import type { Pen } from '@meta2d/core';
+import type { WritableComputedRef } from 'vue';
+import { createPointOptions } from './mock';
+import { createBaseCombinePoint, signalInfoMap } from '~/const';
 
 const props = defineProps<{
   equipId: string
   hasSeletedEquip: boolean
-}>()
+}>();
 
-const { selections, select } = useMeta2dSelection()
+const { selections, select } = useMeta2dSelection();
 
 // 已经创建的测点
-const createdPointInfo = ref<Record<string, string[]>>({}) // { [key]: ['A', 'V', ...] }
+const createdPointInfo = ref<Record<string, string[]>>({}); // { [key]: ['A', 'V', ...] }
 
 const pointOptions = ref<{
   value: string
   label: string
-}[]>([])
+}[]>([]);
 
-const ponitsCheckData = ref<string[]>([]) // string[]
-const signalCheckData = ref<Record<string, string[]>>({}) // { [key]: ['A', 'V', ...] }
+const ponitsCheckData = ref<string[]>([]); // string[]
+const signalCheckData = ref<Record<string, string[]>>({}); // { [key]: ['A', 'V', ...] }
 
-const pointIdKeyMap = ref<Record<string, string[]>>({}) // 旧测点数据映射，key - `pointId-signalType` 对应的是 dataId, 需要和 id 做一个绑定，{ key: [ids] }
+const pointIdKeyMap = ref<Record<string, string[]>>({}); // 旧测点数据映射，key - `pointId-signalType` 对应的是 dataId, 需要和 id 做一个绑定，{ key: [ids] }
 
 const selectedPointIds = computed({
   get() {
-    return ponitsCheckData.value
+    return ponitsCheckData.value;
   },
   set(val) {
-    const _signalCheckData = {} as Record<string, string[]>
+    const _signalCheckData = {} as Record<string, string[]>;
     Object.keys(signalCheckData.value).forEach((id) => {
       if (val.includes(id)) {
         if (!ponitsCheckData.value.includes(id))
-          _signalCheckData[id] = ['A', 'V', 'D', 'T']
+          _signalCheckData[id] = ['A', 'V', 'D', 'T'];
         else
-          _signalCheckData[id] = signalCheckData.value[id]
+          _signalCheckData[id] = signalCheckData.value[id];
       }
       else {
-        _signalCheckData[id] = []
+        _signalCheckData[id] = [];
       }
-    })
-    signalCheckData.value = _signalCheckData
-    ponitsCheckData.value = val
+    });
+    signalCheckData.value = _signalCheckData;
+    ponitsCheckData.value = val;
   },
-})
+});
 
-const selectedSignalComputedMap = ref({})
+const selectedSignalComputedMap = ref({});
 
 function createSelectedSignalComputedMap() {
-  const ids = pointOptions.value.map(i => i.value)
-  const map = {} as Record<string, WritableComputedRef<string[]>>
+  const ids = pointOptions.value.map(i => i.value);
+  const map = {} as Record<string, WritableComputedRef<string[]>>;
   ids.forEach((id) => {
     map[id] = computed({
       get() {
-        return signalCheckData.value[id]
+        return signalCheckData.value[id];
       },
       set(val) {
         if (val.length > 0 && !ponitsCheckData.value.includes(id))
-          ponitsCheckData.value = [...ponitsCheckData.value, id]
+          ponitsCheckData.value = [...ponitsCheckData.value, id];
 
         if (!val.length && ponitsCheckData.value.includes(id))
-          ponitsCheckData.value = [...ponitsCheckData.value.filter(i => i !== id)]
+          ponitsCheckData.value = [...ponitsCheckData.value.filter(i => i !== id)];
 
-        const newSignalCheckData = signalCheckData.value
-        newSignalCheckData[id] = val
-        signalCheckData.value = newSignalCheckData
+        const newSignalCheckData = signalCheckData.value;
+        newSignalCheckData[id] = val;
+        signalCheckData.value = newSignalCheckData;
       },
-    })
-  })
-  selectedSignalComputedMap.value = map
+    });
+  });
+  selectedSignalComputedMap.value = map;
 }
 
 function setSignalData() {
-  getAllCreatedPoints()
-  const _createdPointInfo = createdPointInfo.value
-  const _createdPointIds = Object.keys(_createdPointInfo)
-  const _signalCheckData = {} as Record<string, string[]>
-  const _ponitsCheckData = [] as string[]
+  getAllCreatedPoints();
+  const _createdPointInfo = createdPointInfo.value;
+  const _createdPointIds = Object.keys(_createdPointInfo);
+  const _signalCheckData = {} as Record<string, string[]>;
+  const _ponitsCheckData = [] as string[];
   pointOptions.value.forEach(({ value }) => {
     if (_createdPointIds.includes(value)) {
-      _signalCheckData[value] = _createdPointInfo[value]
-      _ponitsCheckData.push(value) // 设置测点
+      _signalCheckData[value] = _createdPointInfo[value];
+      _ponitsCheckData.push(value); // 设置测点
     }
     else {
-      _signalCheckData[value] = []
+      _signalCheckData[value] = [];
     }
-  })
-  signalCheckData.value = _signalCheckData
-  ponitsCheckData.value = _ponitsCheckData
+  });
+  signalCheckData.value = _signalCheckData;
+  ponitsCheckData.value = _ponitsCheckData;
 }
 
 watch(() => props.equipId, (n) => {
   if (n) {
-    const options = createPointOptions(n)
-    pointOptions.value = options
-    setSignalData()
-    createSelectedSignalComputedMap()
+    const options = createPointOptions(n);
+    pointOptions.value = options;
+    setSignalData();
+    createSelectedSignalComputedMap();
   }
-})
+});
 
 function getAllCreatedPoints() {
   if (!meta2d || !props.hasSeletedEquip)
-    return
-  const pointPens = meta2d.find('hasPointId')
+    return;
+  const pointPens = meta2d.find('hasPointId');
   if (!pointPens.length) {
-    createdPointInfo.value = {}
-    pointIdKeyMap.value = {}
-    return
+    createdPointInfo.value = {};
+    pointIdKeyMap.value = {};
+    return;
   }
 
-  const pointPenIds = pointPens.map(pen => pen.id)
-  const currentEquipPoints = meta2d.find(props.equipId).filter(pen => pointPenIds.includes(pen.id))
+  const pointPenIds = pointPens.map(pen => pen.id);
+  const currentEquipPoints = meta2d.find(props.equipId).filter(pen => pointPenIds.includes(pen.id));
   createdPointInfo.value = currentEquipPoints.reduce((prev, cur) => {
-    const tags = cur.tags || []
-    const pointId = tags.length === 3 ? tags[1] : ''
+    const tags = cur.tags || [];
+    const pointId = tags.length === 3 ? tags[1] : '';
     if (!pointId)
-      return prev
-    const o = prev[pointId] || []
-    prev[pointId] = [...o, getSignalTypeValue(cur) || ''].filter(i => i !== '')
-    return prev
-  }, {} as Record<string, string[]>)
+      return prev;
+    const o = prev[pointId] || [];
+    prev[pointId] = [...o, getSignalTypeValue(cur) || ''].filter(i => i !== '');
+    return prev;
+  }, {} as Record<string, string[]>);
 
   pointIdKeyMap.value = currentEquipPoints.reduce((prev, cur) => {
-    const dataId = (cur as any).dataId
+    const dataId = (cur as any).dataId;
     if (!dataId)
-      return prev
-    const o = prev[dataId] || []
-    prev[dataId] = [...o, cur.id].filter(Boolean) as string[]
-    return prev
-  }, {} as Record<string, string[]>)
+      return prev;
+    const o = prev[dataId] || [];
+    prev[dataId] = [...o, cur.id].filter(Boolean) as string[];
+    return prev;
+  }, {} as Record<string, string[]>);
 }
 
 /**
@@ -143,78 +143,78 @@ function autoGeneratePoints() {
   // 先统一转换成 'pointId-signalType' 后统一比较
   const format = (obj: Record<string, string[]>) => {
     return Object.entries(obj).reduce((prev, cur) => {
-      const [key, value] = cur
+      const [key, value] = cur;
       if (value.length) {
         value.forEach((val) => {
-          prev.push(`${key}-${val}`)
-        })
+          prev.push(`${key}-${val}`);
+        });
       }
-      return prev
-    }, [] as string[])
-  }
+      return prev;
+    }, [] as string[]);
+  };
 
-  const oldSigns = format(createdPointInfo.value)
-  const currentSigns = format(signalCheckData.value)
+  const oldSigns = format(createdPointInfo.value);
+  const currentSigns = format(signalCheckData.value);
 
-  const add = [] as string[]
-  const remove = [] as string[]
+  const add = [] as string[];
+  const remove = [] as string[];
   oldSigns.forEach((i) => {
     if (!currentSigns.includes(i))
-      remove.push(i)
-  })
+      remove.push(i);
+  });
   currentSigns.forEach((i) => {
     if (!oldSigns.includes(i))
-      add.push(i)
-  })
+      add.push(i);
+  });
   const addPens = add.map((key, idx) => {
-    const lastDividerIndex = key.lastIndexOf('-')
-    const [pointId, signalType] = [key.slice(0, lastDividerIndex), key.slice(lastDividerIndex + 1)]
-    const pointName = pointOptions.value.find(i => i.value === pointId)?.label || '测点名称'
-    const signalInfo = signalInfoMap[signalType] || signalInfoMap.A
-    const id = s8()
+    const lastDividerIndex = key.lastIndexOf('-');
+    const [pointId, signalType] = [key.slice(0, lastDividerIndex), key.slice(lastDividerIndex + 1)];
+    const pointName = pointOptions.value.find(i => i.value === pointId)?.label || '测点名称';
+    const signalInfo = signalInfoMap[signalType] || signalInfoMap.A;
+    const id = s8();
     const pointObj = createBaseCombinePoint(
       pointName,
       signalInfo.nameText,
       signalInfo.valueText,
       '时间',
       { id, dataId: key, tags: [props.equipId, pointId, 'hasPointId'] },
-    )
-    pointObj[0].x = 30 + idx * 10
-    pointObj[0].y = 30
+    );
+    pointObj[0].x = 30 + idx * 10;
+    pointObj[0].y = 30;
     pointObj.forEach((o: any, idx: number) => {
       if (idx > 0)
-        o.parentId = id
-    })
-    return pointObj
-  }).flat(2)
+        o.parentId = id;
+    });
+    return pointObj;
+  }).flat(2);
   if (addPens.length)
-    meta2d.addPens(addPens)
+    meta2d.addPens(addPens);
 
   if (remove.length) {
-    const removeIds = [] as string[]
+    const removeIds = [] as string[];
     // 找到所有子节点 id
     remove.forEach((key) => {
-      const ids = pointIdKeyMap.value[key] || []
+      const ids = pointIdKeyMap.value[key] || [];
       if (ids.length) {
-        removeIds.push(...ids)
+        removeIds.push(...ids);
         const fn = (id: string) => {
-          const pen = meta2d.findOne(id)
+          const pen = meta2d.findOne(id);
           if (pen && pen.children?.length)
-            pen.children.forEach(pid => removeIds.push(pid))
-        }
-        ids.forEach(fn)
+            pen.children.forEach(pid => removeIds.push(pid));
+        };
+        ids.forEach(fn);
       }
-    })
-    const pens = selections.pens as Pen[]
+    });
+    const pens = selections.pens as Pen[];
     meta2d.delete(removeIds.map((id) => {
       return {
         id,
-      }
-    }))
+      };
+    }));
     // 解决删除数据后失去焦点的问题
-    select(pens)
+    select(pens);
   }
-  setSignalData() // 重置数据
+  setSignalData(); // 重置数据
 }
 </script>
 

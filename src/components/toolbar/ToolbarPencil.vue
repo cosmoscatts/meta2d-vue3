@@ -1,14 +1,14 @@
 <script setup lang="ts">
-const selected = ref(false)
+const selected = ref(false);
 
 function onClick() {
-  selected.value = !selected.value
+  selected.value = !selected.value;
 
   if (selected.value)
-    meta2d.drawingPencil()
+    meta2d.drawingPencil();
 
   else
-    meta2d.stopPencil()
+    meta2d.stopPencil();
 }
 </script>
 

@@ -2,7 +2,7 @@
  * 自定义测量点组合图元
  */
 
-import { s8 } from '@meta2d/core'
+import { s8 } from '@meta2d/core';
 
 interface Option {
   id?: string
@@ -27,7 +27,7 @@ export const signalInfoMap = {
     nameText: '温度',
     valueText: '测点值（°C）',
   },
-} as any
+} as any;
 
 /**
  * 创建测量点组合图元工具方法，参数为占位符显示名称
@@ -39,13 +39,13 @@ export function createBaseCombinePoint(
   timeText: string,
   opts: Option = {}, // 用于直接自动生成测点，给定 id, dataId 和 tags, dataId 为 `point-signalType`, tags 为 ['equipId', 'pointId', 'hasPointId']
 ) {
-  const parentId = opts?.id || s8()
-  const parentDataId = opts?.dataId || ''
-  const parentTags = opts?.tags || []
+  const parentId = opts?.id || s8();
+  const parentDataId = opts?.dataId || '';
+  const parentTags = opts?.tags || [];
 
-  const [s1, s2, s3, s4, s5, s6, s7] = Array.from({ length: 7 }, () => s8())
-  const parentName = `point-combine-${getRandomStr(6)}`
-  const createTag = (prop: string) => `__${parentName}_${prop}`
+  const [s1, s2, s3, s4, s5, s6, s7] = Array.from({ length: 7 }, () => s8());
+  const parentName = `point-combine-${getRandomStr(6)}`;
+  const createTag = (prop: string) => `__${parentName}_${prop}`;
 
   const defaultValueTags = [
     createTag('textColor'),
@@ -56,10 +56,10 @@ export function createBaseCombinePoint(
     createTag('textAlign'),
     createTag('textBaseline'),
     createTag('valueTextColor'),
-  ]
+  ];
   const valueTags = parentDataId
     ? [...defaultValueTags, `${parentDataId}__value`]
-    : defaultValueTags
+    : defaultValueTags;
 
   const defaultTimeTags = [
     createTag('textColor'),
@@ -69,10 +69,10 @@ export function createBaseCombinePoint(
     createTag('fontStyle'),
     createTag('textAlign'),
     createTag('textBaseline'),
-  ]
+  ];
   const timeTags = parentDataId
     ? [...defaultTimeTags, `${parentDataId}__time`]
-    : defaultTimeTags
+    : defaultTimeTags;
 
   const result = [
     {
@@ -206,9 +206,9 @@ export function createBaseCombinePoint(
       disableSize: true,
       disableAnchor: true,
     },
-  ]
+  ];
 
-  return result
+  return result;
 }
 
 export const point = {
@@ -245,4 +245,4 @@ export const point = {
       data: createBaseCombinePoint('测点名称', signalInfoMap.T.nameText, signalInfoMap.T.valueText, '时间'),
     },
   ],
-}
+};

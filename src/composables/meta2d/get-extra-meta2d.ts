@@ -6,11 +6,12 @@
  * https://doc.le5le.com/document/119752831
  */
 
-import { Meta2d, type Options } from '@meta2d/core'
+import type { Options } from '@meta2d/core';
+import { Meta2d } from '@meta2d/core';
 
 export function getExtraMeta2d(id: string, options?: Options) {
-  const mainMeta2d = (globalThis as any).meta2d
+  const mainMeta2d = (globalThis as any).meta2d;
   const newMeta2d = new Meta2d(id, options)
-  ;(globalThis as any).meta2d = mainMeta2d
-  return newMeta2d
+  ;(globalThis as any).meta2d = mainMeta2d;
+  return newMeta2d;
 }

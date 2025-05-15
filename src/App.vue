@@ -1,10 +1,10 @@
 <script setup lang="ts">
-createPrimaryColor('purple')
+createPrimaryColor('purple');
 
-const { visible } = usePreview()
+const { visible } = usePreview();
 
-const isViewMounted = useMounted()
-provide('isViewMounted', isViewMounted)
+const isViewMounted = useMounted();
+provide('isViewMounted', isViewMounted);
 </script>
 
 <template>

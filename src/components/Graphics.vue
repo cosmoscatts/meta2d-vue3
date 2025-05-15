@@ -1,15 +1,15 @@
 <script setup lang="ts">
-const graphicsDataKey = ref(defaultGraphicsDataKey)
+const graphicsDataKey = ref(defaultGraphicsDataKey);
 
 const graphicsData = computed(() => {
   return graphicsDataKey.value.map((key) => {
-    return commonGraphicsDataMap[key]
-  })
-})
+    return commonGraphicsDataMap[key];
+  });
+});
 
-const expandKeys = computed(() => graphicsData.value.map(i => i.key))
+const expandKeys = computed(() => graphicsData.value.map(i => i.key));
 
-const filterVisible = ref(false)
+const filterVisible = ref(false);
 </script>
 
 <template>

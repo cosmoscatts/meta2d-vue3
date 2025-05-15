@@ -1,17 +1,17 @@
 <script setup lang="ts">
-const isDrawLine = ref(false)
+const isDrawLine = ref(false);
 
 function drawLine() {
   if (isDrawLine.value) {
-    isDrawLine.value = false
-    meta2d.finishDrawLine()
-    meta2d.drawLine()
-    meta2d.store.options.disableAnchor = true
+    isDrawLine.value = false;
+    meta2d.finishDrawLine();
+    meta2d.drawLine();
+    meta2d.store.options.disableAnchor = true;
   }
   else {
-    isDrawLine.value = true
-    meta2d.drawLine(meta2d.store.options.drawingLineName)
-    meta2d.store.options.disableAnchor = false
+    isDrawLine.value = true;
+    meta2d.drawLine(meta2d.store.options.drawingLineName);
+    meta2d.store.options.disableAnchor = false;
   }
 }
 </script>

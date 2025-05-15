@@ -1,6 +1,6 @@
 <script setup lang="ts">
 function redo() {
-  meta2d.redo()
+  meta2d.redo();
 }
 </script>
 

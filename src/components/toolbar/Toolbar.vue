@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import ToolbarText from './ToolbarText.vue'
+import ToolbarText from './ToolbarText.vue';
 
-const isViewMounted = inject('isViewMounted') as Ref<boolean>
+const isViewMounted = inject('isViewMounted') as Ref<boolean>;
 
-const { scale, disableScale, updateDisableScale, getScaleByInterval } = useScale()
+const { scale, disableScale, updateDisableScale, getScaleByInterval } = useScale();
 
 onMounted(async () => {
-  await until(isViewMounted)
-  updateDisableScale(isViewMounted)
-  getScaleByInterval()
-})
+  await until(isViewMounted);
+  updateDisableScale(isViewMounted);
+  getScaleByInterval();
+});
 </script>
 
 <template>

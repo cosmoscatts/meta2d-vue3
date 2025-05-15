@@ -1,35 +1,35 @@
 <script setup lang="ts">
-const isViewMounted = inject('isViewMounted') as Ref<boolean>
+const isViewMounted = inject('isViewMounted') as Ref<boolean>;
 
-const selected = ref(false)
+const selected = ref(false);
 
 function clear() {
   if (!selected.value)
-    return
+    return;
 
-  selected.value = false
-  meta2d.canvas.addCaches = []
+  selected.value = false;
+  meta2d.canvas.addCaches = [];
 }
 
 function onClick(event: DragEvent | MouseEvent, name: string) {
   if (selected.value) {
-    clear()
-    return
+    clear();
+    return;
   }
 
-  selected.value = true
-  addMeta2dShape(event, name)
+  selected.value = true;
+  addMeta2dShape(event, name);
 }
 
 function onDrag(event: DragEvent | MouseEvent, name: string) {
-  addMeta2dShape(event, name)
-  clear()
+  addMeta2dShape(event, name);
+  clear();
 }
 
 onMounted(async () => {
-  await until(isViewMounted)
-  meta2d.on('click', clear)
-})
+  await until(isViewMounted);
+  meta2d.on('click', clear);
+});
 </script>
 
 <template>

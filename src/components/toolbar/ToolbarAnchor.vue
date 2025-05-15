@@ -1,28 +1,28 @@
 <script setup lang="ts">
-const isViewMounted = inject('isViewMounted') as Ref<boolean>
+const isViewMounted = inject('isViewMounted') as Ref<boolean>;
 
-const selected = ref(false)
+const selected = ref(false);
 
 function clear() {
   if (!selected.value)
-    return
+    return;
 
-  selected.value = false
+  selected.value = false;
 }
 
 function onClick() {
   if (selected.value) {
-    clear()
-    return
+    clear();
+    return;
   }
-  selected.value = true
-  meta2d.toggleAnchorMode()
+  selected.value = true;
+  meta2d.toggleAnchorMode();
 }
 
 onMounted(async () => {
-  await until(isViewMounted)
-  meta2d.on('click', clear)
-})
+  await until(isViewMounted);
+  meta2d.on('click', clear);
+});
 </script>
 
 <template>

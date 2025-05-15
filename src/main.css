@@ -85,7 +85,7 @@ html.dark .meta2d-map {
 }
 
 .arco-dropdown-option-active, .arco-dropdown-option:not(.arco-dropdown-option-disabled):hover {
-  --at-apply bg-active;
+  --at-apply: bg-active;
 }
 
 .arco-dropdown-option {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const { currentToArrow, toArrows, changeToArrow } = getToArrowInfo()
+const { currentToArrow, toArrows, changeToArrow } = getToArrowInfo();
 
-const svgFillColor = computed(() => ['#232323', '#f3f3f3'][Number(isDark.value)])
+const svgFillColor = computed(() => ['#232323', '#f3f3f3'][Number(isDark.value)]);
 </script>
 
 <template>

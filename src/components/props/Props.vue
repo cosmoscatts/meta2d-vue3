@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { selections } = useMeta2dSelection()
+const { selections } = useMeta2dSelection();
 </script>
 
 <template>

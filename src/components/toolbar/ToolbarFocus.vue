@@ -1,6 +1,6 @@
 <script setup lang="ts">
 function focus() {
-  meta2d.fitView()
+  meta2d.fitView();
 }
 </script>
 

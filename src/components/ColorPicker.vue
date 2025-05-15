@@ -1,48 +1,48 @@
 <script setup lang="ts">
 const props = defineProps<{
   hideReset?: boolean
-}>()
-defineEmits(['change', 'reset'])
-const modelValue = defineModel<string | undefined>()
+}>();
+defineEmits(['change', 'reset']);
+const modelValue = defineModel<string | undefined>();
 
-const history = ref<string[]>([])
+const history = ref<string[]>([]);
 
 function addHistory(visible: boolean, color: string) {
   if (!visible) {
-    const index = history.value.indexOf(color)
+    const index = history.value.indexOf(color);
     if (index !== -1)
-      history.value.splice(index, 1)
+      history.value.splice(index, 1);
 
-    history.value.unshift(color)
+    history.value.unshift(color);
   }
 }
 
 function parseHexToRgb(hex: string) {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
-  return result ? [Number.parseInt(result[1], 16), Number.parseInt(result[2], 16), Number.parseInt(result[3], 16)] : null
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? [Number.parseInt(result[1], 16), Number.parseInt(result[2], 16), Number.parseInt(result[3], 16)] : null;
 }
 
 function isColorCloseToWhite(rgb?: string) {
   if (!rgb || typeof rgb !== 'string' || rgb.startsWith('rgb'))
-    return false
+    return false;
 
-  const arr = parseHexToRgb(rgb)
+  const arr = parseHexToRgb(rgb);
 
   if (!arr)
-    return false
+    return false;
 
-  const [r, g, b] = arr
+  const [r, g, b] = arr;
 
-  const avg = (r + g + b) / 3
-  const threshold = 240
-  return avg > threshold
+  const avg = (r + g + b) / 3;
+  const threshold = 240;
+  return avg > threshold;
 }
 
 const isWhite = computed(() => {
-  return isColorCloseToWhite(modelValue.value)
-})
+  return isColorCloseToWhite(modelValue.value);
+});
 
-const showReset = computed(() => !props.hideReset)
+const showReset = computed(() => !props.hideReset);
 </script>
 
 <template>

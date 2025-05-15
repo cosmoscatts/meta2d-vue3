@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import type { Pen } from '@meta2d/core'
-import type { FileItem } from '@arco-design/web-vue/es/upload/interfaces'
+import type { Pen } from '@meta2d/core';
+import type { FileItem } from '@arco-design/web-vue/es/upload/interfaces';
 
-const { selections } = useMeta2dSelection()
+const { selections } = useMeta2dSelection();
 
 const form = reactive<any>({
   id: '',
@@ -26,74 +26,74 @@ const form = reactive<any>({
   textAlign: '',
   textBaseline: '',
   image: '', // 图片
-})
+});
 
 // 特定基础类型可以添加背景图片
-const canAddBgImageNames = ['square', 'rectangle', 'circle', 'triangle', 'diamond', 'pentagon', 'hexagon', 'pentagram']
+const canAddBgImageNames = ['square', 'rectangle', 'circle', 'triangle', 'diamond', 'pentagon', 'hexagon', 'pentagram'];
 const showAddBgImage = computed(() => {
-  const pen = selections.pen
+  const pen = selections.pen;
   if (!pen || !pen.name?.length)
-    return false
-  return canAddBgImageNames.includes(pen.name)
-})
+    return false;
+  return canAddBgImageNames.includes(pen.name);
+});
 
 function getPen() {
-  const pen = selections.pen
+  const pen = selections.pen;
   if (!pen)
-    return
-  form.id = pen.id || ''
-  form.text = pen.text || ''
-  form.color = pen.color || ''
-  form.textColor = pen.textColor || '' // 文字颜色
-  form.fontFamily = pen.fontFamily || '' // 文字字体
-  form.fontSize = pen.fontSize || 12 // 文字大小
-  form.lineHeight = pen.lineHeight || 1.5 // 文字行高
-  form.fontWeight = pen.fontWeight || ''
-  form.fontStyle = pen.fontStyle || '' // 是否倾斜
-  form.background = pen.background || ''
-  form.dash = (pen as any).dash || 0
-  form.borderRadius = pen.borderRadius || 0
-  form.globalAlpha = pen.globalAlpha || 1
-  form.textAlign = pen.textAlign || 'center'
-  form.textBaseline = pen.textBaseline || 'middle'
+    return;
+  form.id = pen.id || '';
+  form.text = pen.text || '';
+  form.color = pen.color || '';
+  form.textColor = pen.textColor || ''; // 文字颜色
+  form.fontFamily = pen.fontFamily || ''; // 文字字体
+  form.fontSize = pen.fontSize || 12; // 文字大小
+  form.lineHeight = pen.lineHeight || 1.5; // 文字行高
+  form.fontWeight = pen.fontWeight || '';
+  form.fontStyle = pen.fontStyle || ''; // 是否倾斜
+  form.background = pen.background || '';
+  form.dash = (pen as any).dash || 0;
+  form.borderRadius = pen.borderRadius || 0;
+  form.globalAlpha = pen.globalAlpha || 1;
+  form.textAlign = pen.textAlign || 'center';
+  form.textBaseline = pen.textBaseline || 'middle';
 
-  const rect = meta2d.getPenRect(pen as Pen)
+  const rect = meta2d.getPenRect(pen as Pen);
   if (rect) {
-    form.x = rect.x || 0
-    form.y = rect.y || 0
-    form.width = rect.width || 0
-    form.height = rect.height || 0
+    form.x = rect.x || 0;
+    form.y = rect.y || 0;
+    form.width = rect.width || 0;
+    form.height = rect.height || 0;
   }
 
   if (showAddBgImage.value)
-    form.image = pen.image || ''
+    form.image = pen.image || '';
 }
 
 // 监听选中不同图元
-watch(() => selections.pen?.id, getPen)
+watch(() => selections.pen?.id, getPen);
 
-const lineDashs = [undefined, [5, 5]]
+const lineDashs = [undefined, [5, 5]];
 
 function changeValue(prop: string) {
-  const v: any = { id: form.id }
-  v[prop] = form[prop]
+  const v: any = { id: form.id };
+  v[prop] = form[prop];
   if (prop === 'dash')
-    v.lineDash = lineDashs[v[prop]]
+    v.lineDash = lineDashs[v[prop]];
 
-  meta2d.setValue(v, { render: true })
+  meta2d.setValue(v, { render: true });
 }
 
 function changeRect(prop: string) {
-  const v: any = { id: form.id }
-  v[prop] = form[prop]
-  meta2d.setValue(v, { render: true })
+  const v: any = { id: form.id };
+  v[prop] = form[prop];
+  meta2d.setValue(v, { render: true });
 }
 
 async function onBgImageChange(_: FileItem[], currentFile: FileItem) {
-  const imageUrl = await getFileBase64(currentFile.file!)
-  form.image = imageUrl
-  changeValue('image')
-  Message.success('添加背景图片成功')
+  const imageUrl = await getFileBase64(currentFile.file!);
+  form.image = imageUrl;
+  changeValue('image');
+  Message.success('添加背景图片成功');
 }
 
 function removeBgImage() {
@@ -101,20 +101,20 @@ function removeBgImage() {
     title: '提示',
     content: '确定要移除背景图片吗？',
     ok() {
-      form.image = ''
-      changeValue('image')
-      Message.success('移除背景图片成功')
+      form.image = '';
+      changeValue('image');
+      Message.success('移除背景图片成功');
     },
-  })
+  });
 }
 
 onMounted(() => {
-  getPen()
-  meta2d.on('update', getPen)
-  meta2d.on('resizePens', getPen)
-  meta2d.on('rotatePens', getPen)
-  meta2d.on('valueUpdate', getPen)
-})
+  getPen();
+  meta2d.on('update', getPen);
+  meta2d.on('resizePens', getPen);
+  meta2d.on('rotatePens', getPen);
+  meta2d.on('valueUpdate', getPen);
+});
 </script>
 
 <template>

@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import type { Pen } from '@meta2d/core'
+import type { Pen } from '@meta2d/core';
 
-const { selections } = useMeta2dSelection()
+const { selections } = useMeta2dSelection();
 
-const lineDashs = [undefined, [5, 5]]
-const animateLineDash = [undefined, [5, 5], undefined] // 虚线段，lineAnimateType : 1 有效
+const lineDashs = [undefined, [5, 5]];
+const animateLineDash = [undefined, [5, 5], undefined]; // 虚线段，lineAnimateType : 1 有效
 
 const form = reactive<any>({
   id: '',
@@ -26,85 +26,85 @@ const form = reactive<any>({
   animateReverse: undefined, // 反向播放
   animateCycle: undefined, // 默认无限循环播放
   autoPlay: undefined, // 自动播放
-})
+});
 
 function getPen() {
-  const pen = selections.pen
+  const pen = selections.pen;
   if (!pen)
-    return
+    return;
 
-  form.id = pen.id || ''
-  form.color = pen.color || ''
-  form.dash = (pen as any).dash || 0
-  form.borderRadius = pen.borderRadius || 0
-  form.globalAlpha = pen.globalAlpha || 1
+  form.id = pen.id || '';
+  form.color = pen.color || '';
+  form.dash = (pen as any).dash || 0;
+  form.borderRadius = pen.borderRadius || 0;
+  form.globalAlpha = pen.globalAlpha || 1;
   // 动画
-  form.lineAnimateType = pen.lineAnimateType
-  form.animateSpan = pen.animateSpan || 1
-  form.animateColor = pen.animateColor || ''
-  form.animateDotSize = pen.animateDotSize
-  form.animateReverse = pen.animateReverse ?? false
-  form.animateCycle = pen.animateCycle === Number.POSITIVE_INFINITY ? undefined : pen.animateCycle
-  form.animateLineWidth = pen.animateLineWidth
-  form.autoPlay = pen.autoPlay ?? false
+  form.lineAnimateType = pen.lineAnimateType;
+  form.animateSpan = pen.animateSpan || 1;
+  form.animateColor = pen.animateColor || '';
+  form.animateDotSize = pen.animateDotSize;
+  form.animateReverse = pen.animateReverse ?? false;
+  form.animateCycle = pen.animateCycle === Number.POSITIVE_INFINITY ? undefined : pen.animateCycle;
+  form.animateLineWidth = pen.animateLineWidth;
+  form.autoPlay = pen.autoPlay ?? false;
 
-  const rect = meta2d.getPenRect(pen as Pen)
+  const rect = meta2d.getPenRect(pen as Pen);
   if (rect) {
-    form.x = rect.x || 0
-    form.y = rect.y || 0
-    form.width = rect.width || 0
-    form.height = rect.height || 0
+    form.x = rect.x || 0;
+    form.y = rect.y || 0;
+    form.width = rect.width || 0;
+    form.height = rect.height || 0;
   }
 }
 
 // 监听选中不同图元
-watch(() => selections.pen?.id, getPen)
+watch(() => selections.pen?.id, getPen);
 
 function changeValue(prop: string) {
-  const v: any = { id: form.id }
-  v[prop] = form[prop]
+  const v: any = { id: form.id };
+  v[prop] = form[prop];
 
   if (prop === 'dash')
-    v.lineDash = lineDashs[v[prop]]
+    v.lineDash = lineDashs[v[prop]];
 
   if (prop === 'lineAnimateType') {
     if (v[prop] === 2) // 圆点需要清除动画线宽，不然会影响圆点大小
-      v.animateLineWidth = undefined
+      v.animateLineWidth = undefined;
 
-    v.animateLineDash = animateLineDash[v[prop]]
+    v.animateLineDash = animateLineDash[v[prop]];
   }
 
-  meta2d.setValue(v, { render: true })
+  meta2d.setValue(v, { render: true });
 }
 
 function changeRect(prop: string) {
-  const v: any = { id: form.id }
-  v[prop] = form[prop]
-  meta2d.setValue(v, { render: true })
+  const v: any = { id: form.id };
+  v[prop] = form[prop];
+  meta2d.setValue(v, { render: true });
 }
 
 function startAnimate() {
   if (selections.pen)
-    meta2d.startAnimate(selections.pen.id)
+    meta2d.startAnimate(selections.pen.id);
 }
 
 function pauseAnimate() {
   if (selections.pen)
-    meta2d.pauseAnimate(selections.pen.id)
+    meta2d.pauseAnimate(selections.pen.id);
 }
 
 function stopAnimate() {
   if (selections.pen)
-    meta2d.stopAnimate(selections.pen.id)
+    meta2d.stopAnimate(selections.pen.id);
 }
 
 onMounted(() => {
-  getPen()
-  meta2d.on('update', getPen)
-  meta2d.on('resizePens', getPen)
-  meta2d.on('rotatePens', getPen)
-  meta2d.on('valueUpdate', getPen)
-})
+  getPen();
+  meta2d.on('update', getPen);
+  meta2d.on('resizePens', getPen);
+  meta2d.on('rotatePens', getPen);
+  meta2d.on('valueUpdate', getPen);
+});
 </script>
 
 <template>

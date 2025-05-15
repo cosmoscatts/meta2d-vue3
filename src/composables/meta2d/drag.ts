@@ -1,21 +1,21 @@
-import { getDefaultPenColor } from '~/const'
+import { getDefaultPenColor } from '~/const';
 
 export function dragStart(e: DragEvent | MouseEvent, elem: any) {
   if (!elem)
-    return
+    return;
 
-  e.stopPropagation()
+  e.stopPropagation();
 
-  const data = elem.data
-  const color = getDefaultPenColor()
+  const data = elem.data;
+  const color = getDefaultPenColor();
   const _data = Array.isArray(data)
     ? [...data]
-    : [data]
+    : [data];
   _data.forEach((item) => {
     if (!item.color)
-      item.color = color
-  })
+      item.color = color;
+  });
 
   if (e instanceof DragEvent)
-    e.dataTransfer?.setData('Meta2d', JSON.stringify(_data))
+    e.dataTransfer?.setData('Meta2d', JSON.stringify(_data));
 }

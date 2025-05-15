@@ -1,6 +1,6 @@
 <script setup lang="ts">
 function topView() {
-  meta2d.topView()
+  meta2d.topView();
 }
 </script>
 

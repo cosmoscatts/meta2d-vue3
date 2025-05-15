@@ -1,7 +1,7 @@
 <script setup lang="ts">
 function scaleDefault() {
-  meta2d.scale(1)
-  meta2d.centerView()
+  meta2d.scale(1);
+  meta2d.centerView();
 }
 </script>
 

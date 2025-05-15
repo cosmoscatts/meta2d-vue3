@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { Pen } from '@meta2d/core'
-import { createPointOptions, equipOptions } from './mock'
-import { signalInfoMap } from '~/const'
+import type { Pen } from '@meta2d/core';
+import { createPointOptions, equipOptions } from './mock';
+import { signalInfoMap } from '~/const';
 
-const { selections } = useMeta2dSelection()
+const { selections } = useMeta2dSelection();
 
 /**
  * dataId => pointid-signalType
@@ -45,166 +45,166 @@ const form: any = reactive({
   valueTextColor: '', // 数值文本色 c4
 
   hasBorder: undefined,
-})
+});
 
 function getPen() {
-  const pen = selections.pen
+  const pen = selections.pen;
   if (!pen)
-    return
+    return;
 
-  form.equipId = ''
-  form.pointId = ''
+  form.equipId = '';
+  form.pointId = '';
 
-  const tags = pen.tags || []
+  const tags = pen.tags || [];
   if (tags.length && tags[0]) {
     if (equipOptions.map(i => i.value).includes(tags[0]))
-      form.equipId = tags[0]
+      form.equipId = tags[0];
   }
   if (tags.includes('hasPointId') && tags.length > 2)
-    form.pointId = tags[1] || ''
+    form.pointId = tags[1] || '';
 
-  form.id = pen.id || ''
-  const rect = meta2d.getPenRect(pen as Pen)
+  form.id = pen.id || '';
+  const rect = meta2d.getPenRect(pen as Pen);
   if (rect) {
-    form.x = rect.x || 0
-    form.y = rect.y || 0
-    form.width = rect.width || 0
-    form.height = rect.height || 0
+    form.x = rect.x || 0;
+    form.y = rect.y || 0;
+    form.width = rect.width || 0;
+    form.height = rect.height || 0;
   }
 
-  const childIds = pen.children
+  const childIds = pen.children;
   if (!childIds?.length || childIds.length !== 7)
-    return
+    return;
 
-  const child = childIds.map(id => meta2d.findOne(id))
+  const child = childIds.map(id => meta2d.findOne(id));
 
-  form.color = child[0]?.color // 边框颜色 c1, c6
-  form.textColor = child[1]?.textColor// 文字颜色 c2, c3, c4, c5
-  form.fontFamily = child[1]?.fontFamily || '' // 文字字体 c2, c3, c4, c5
-  form.fontSize = child[1]?.fontSize || 12 // 文字大小 c2, c3, c4, c5
-  form.fontWeight = child[1]?.fontWeight || '' // c2, c3, c4, c5
-  form.fontStyle = child[1]?.fontStyle || '' // 是否倾斜 c2, c3, c4, c5
-  form.background = child[0]?.background // c1
-  form.dash = (child[0] as any)?.dash || 0 // c1
-  form.borderRadius = child[0]?.borderRadius || 0 // c1
-  form.globalAlpha = child[0]?.globalAlpha || 1 // c1
-  form.textAlign = child[1]?.textAlign || 'center' // c2, c3, c4, c5
-  form.textBaseline = child[1]?.textBaseline || 'middle' // c2, c3, c4, c5
-  form.signalBackground = child[6]?.background || '' // 小圆点背景 c7
-  form.valueTextColor = child[3]?.textColor || '' // 数值文本色 c4
-  form.signalType = signalOptions.find(i => i.label === child[2]?.text)?.value || ''
+  form.color = child[0]?.color; // 边框颜色 c1, c6
+  form.textColor = child[1]?.textColor;// 文字颜色 c2, c3, c4, c5
+  form.fontFamily = child[1]?.fontFamily || ''; // 文字字体 c2, c3, c4, c5
+  form.fontSize = child[1]?.fontSize || 12; // 文字大小 c2, c3, c4, c5
+  form.fontWeight = child[1]?.fontWeight || ''; // c2, c3, c4, c5
+  form.fontStyle = child[1]?.fontStyle || ''; // 是否倾斜 c2, c3, c4, c5
+  form.background = child[0]?.background; // c1
+  form.dash = (child[0] as any)?.dash || 0; // c1
+  form.borderRadius = child[0]?.borderRadius || 0; // c1
+  form.globalAlpha = child[0]?.globalAlpha || 1; // c1
+  form.textAlign = child[1]?.textAlign || 'center'; // c2, c3, c4, c5
+  form.textBaseline = child[1]?.textBaseline || 'middle'; // c2, c3, c4, c5
+  form.signalBackground = child[6]?.background || ''; // 小圆点背景 c7
+  form.valueTextColor = child[3]?.textColor || ''; // 数值文本色 c4
+  form.signalType = signalOptions.find(i => i.label === child[2]?.text)?.value || '';
 
-  form.hasBorder = child[0]?.lineWidth !== 0
+  form.hasBorder = child[0]?.lineWidth !== 0;
 }
 
 // 监听选中不同图元
-watch(() => selections.pen?.id, getPen)
+watch(() => selections.pen?.id, getPen);
 
-const pointOptions = ref<SelectOption[]>([])
+const pointOptions = ref<SelectOption[]>([]);
 watch(() => form.equipId, (n, o) => {
   if (equipOptions.map(i => i.value).includes(n)) {
-    pointOptions.value = createPointOptions(n) as SelectOption[]
+    pointOptions.value = createPointOptions(n) as SelectOption[];
     if (n && o)
-      form.pointId = ''
+      form.pointId = '';
   }
-})
+});
 
 const hasSeletedEquip = computed(() => {
-  const equipId = form.equipId || ''
+  const equipId = form.equipId || '';
   if (equipId === '')
-    return false
-  return equipOptions.map(i => i.value).includes(equipId)
-})
+    return false;
+  return equipOptions.map(i => i.value).includes(equipId);
+});
 
-const lineDashs = [undefined, [5, 5]]
+const lineDashs = [undefined, [5, 5]];
 
 function updatePropByTag(prop: string) {
-  const pen = selections.pen!
-  const tagName = `__${pen.name}_${prop}`
-  const pens = meta2d.find(tagName)
+  const pen = selections.pen!;
+  const tagName = `__${pen.name}_${prop}`;
+  const pens = meta2d.find(tagName);
   if (!pens.length)
-    return
+    return;
   pens.forEach((pen) => {
-    const v = { id: pen.id } as any
+    const v = { id: pen.id } as any;
     if (prop === 'signalBackground')
-      v.background = form[prop]
+      v.background = form[prop];
     else if (prop === 'valueTextColor')
-      v.textColor = form[prop]
+      v.textColor = form[prop];
     else
-      v[prop] = form[prop]
+      v[prop] = form[prop];
 
     if (prop === 'dash')
-      v.lineDash = lineDashs[v[prop]]
+      v.lineDash = lineDashs[v[prop]];
 
-    meta2d.setValue(v)
-  })
-  meta2d.render()
+    meta2d.setValue(v);
+  });
+  meta2d.render();
 }
 
 function updateBorder(hasBorder: boolean) {
-  const pen = selections.pen!
-  const [tagName] = [`__${pen.name}_border`]
-  const pens = meta2d.find(tagName)
+  const pen = selections.pen!;
+  const [tagName] = [`__${pen.name}_border`];
+  const pens = meta2d.find(tagName);
   if (pens.length) {
     pens.forEach((pen) => {
-      const v = { id: pen.id, lineWidth: hasBorder ? 1 : 0 }
-      meta2d.setValue(v)
-    })
+      const v = { id: pen.id, lineWidth: hasBorder ? 1 : 0 };
+      meta2d.setValue(v);
+    });
   }
-  meta2d.render()
+  meta2d.render();
 }
 
 function changeValue(prop: string) {
-  const childIds = selections.pen!.children
-  const child = childIds!.map(id => meta2d.findOne(id))
+  const childIds = selections.pen!.children;
+  const child = childIds!.map(id => meta2d.findOne(id));
   if (prop === 'equipId') {
-    meta2d.setValue({ id: form.id, tags: [form.equipId] }, { render: true })
-    return
+    meta2d.setValue({ id: form.id, tags: [form.equipId] }, { render: true });
+    return;
   }
   if (prop === 'hasBorder') { // c1, c6
-    updateBorder(form.hasBorder)
-    return
+    updateBorder(form.hasBorder);
+    return;
   }
   if (prop === 'pointId') {
-    meta2d.setValue({ id: form.id, dataId: `${form.pointId}-${form.signalType}`, tags: [form.equipId, form.pointId, 'hasPointId'] })
+    meta2d.setValue({ id: form.id, dataId: `${form.pointId}-${form.signalType}`, tags: [form.equipId, form.pointId, 'hasPointId'] });
     if (child.length && child.length === 7) {
-      meta2d.setValue({ id: child[1]!.id, text: pointOptions.value.find(i => i.value === form.pointId)?.label || '' })
-      const valuePenTags = child[3]!.tags || []
-      meta2d.setValue({ id: child[3]!.id, tags: [...valuePenTags, `${form.pointId}-${form.signalType}__value`] })
-      const timePenTags = child[4]!.tags || []
-      meta2d.setValue({ id: child[4]!.id, tags: [...timePenTags, `${form.pointId}-${form.signalType}__time`] })
+      meta2d.setValue({ id: child[1]!.id, text: pointOptions.value.find(i => i.value === form.pointId)?.label || '' });
+      const valuePenTags = child[3]!.tags || [];
+      meta2d.setValue({ id: child[3]!.id, tags: [...valuePenTags, `${form.pointId}-${form.signalType}__value`] });
+      const timePenTags = child[4]!.tags || [];
+      meta2d.setValue({ id: child[4]!.id, tags: [...timePenTags, `${form.pointId}-${form.signalType}__time`] });
     }
-    meta2d.render()
-    return
+    meta2d.render();
+    return;
   }
   if (prop === 'signalType') {
     if (!child.length || child.length !== 7)
-      return
-    const valuePenTags = child[3]!.tags || []
-    meta2d.setValue({ id: child[2]!.id, text: signalInfoMap[form.signalType].nameText })
-    meta2d.setValue({ id: child[3]!.id, text: signalInfoMap[form.signalType].valueText, tags: [...valuePenTags, `${form.pointId}-${form.signalType}__value`] })
-    const timePenTags = child[4]!.tags || []
-    meta2d.setValue({ id: child[4]!.id, tags: [...timePenTags, `${form.pointId}-${form.signalType}__time`] })
-    meta2d.setValue({ id: form.id, dataId: `${form.pointId}-${form.signalType}` })
-    meta2d.render()
-    return
+      return;
+    const valuePenTags = child[3]!.tags || [];
+    meta2d.setValue({ id: child[2]!.id, text: signalInfoMap[form.signalType].nameText });
+    meta2d.setValue({ id: child[3]!.id, text: signalInfoMap[form.signalType].valueText, tags: [...valuePenTags, `${form.pointId}-${form.signalType}__value`] });
+    const timePenTags = child[4]!.tags || [];
+    meta2d.setValue({ id: child[4]!.id, tags: [...timePenTags, `${form.pointId}-${form.signalType}__time`] });
+    meta2d.setValue({ id: form.id, dataId: `${form.pointId}-${form.signalType}` });
+    meta2d.render();
+    return;
   }
-  updatePropByTag(prop)
+  updatePropByTag(prop);
 }
 
 function changeRect(prop: string) {
-  const v = { id: form.id } as any
-  v[prop] = form[prop]
-  meta2d.setValue(v, { render: true })
+  const v = { id: form.id } as any;
+  v[prop] = form[prop];
+  meta2d.setValue(v, { render: true });
 }
 
 onMounted(() => {
-  getPen()
-  meta2d.on('update', getPen)
-  meta2d.on('resizePens', getPen)
-  meta2d.on('rotatePens', getPen)
-  meta2d.on('valueUpdate', getPen)
-})
+  getPen();
+  meta2d.on('update', getPen);
+  meta2d.on('resizePens', getPen);
+  meta2d.on('rotatePens', getPen);
+  meta2d.on('valueUpdate', getPen);
+});
 </script>
 
 <template>
