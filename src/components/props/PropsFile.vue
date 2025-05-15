@@ -3,11 +3,11 @@ import {
   getDefaultBackgroundColor,
   getDefaultGridColor,
   getDefaultRuleColor,
-} from '~/const'
+} from '~/const';
 
-const isViewMounted = inject('isViewMounted') as Ref<boolean>
+const isViewMounted = inject('isViewMounted') as Ref<boolean>;
 
-const { updateDisableScale } = useScale()
+const { updateDisableScale } = useScale();
 
 const form = reactive<FileProps>({
   grid: undefined,
@@ -19,45 +19,45 @@ const form = reactive<FileProps>({
   disableScale: undefined,
   activeColor: '', // 选中颜色
   hoverColor: '', // 悬浮颜色
-})
+});
 
 function setForm() {
-  const options = meta2d.getOptions()
-  form.disableScale = options.disableScale
-  form.hoverColor = options.hoverColor
-  form.activeColor = options.activeColor
+  const options = meta2d.getOptions();
+  form.disableScale = options.disableScale;
+  form.hoverColor = options.hoverColor;
+  form.activeColor = options.activeColor;
 
-  const data = meta2d.store.data
-  let gridColor = data.gridColor
+  const data = meta2d.store.data;
+  let gridColor = data.gridColor;
   if (gridColor && ['#AAAAAA', '#AAA3'].includes(gridColor.toUpperCase())) // 初次加载时覆盖默认颜色
-    gridColor = options.gridColor
-  form.grid = data.grid
-  form.gridSize = data.gridSize
-  form.background = data.background
-  form.rule = data.rule
-  form.ruleColor = data.ruleColor
-  form.gridColor = gridColor
+    gridColor = options.gridColor;
+  form.grid = data.grid;
+  form.gridSize = data.gridSize;
+  form.background = data.background;
+  form.rule = data.rule;
+  form.ruleColor = data.ruleColor;
+  form.gridColor = gridColor;
 }
 
 onMounted(async () => {
-  await until(isViewMounted)
+  await until(isViewMounted);
 
-  setForm()
-})
+  setForm();
+});
 
-watch(isDark, setForm)
+watch(isDark, setForm);
 
 function onChangeBackground() {
   if (form.background
     && meta2d.store.data.background
     && form.background.toLowerCase() === meta2d.store.data.background.toLowerCase()
   ) {
-    return
+    return;
   }
 
   meta2d.setBackgroundColor(form.background)
-  ;(meta2d.store as any).patchFlagsBackground = true
-  meta2d.render()
+  ;(meta2d.store as any).patchFlagsBackground = true;
+  meta2d.render();
 }
 
 function onChangeOptions() {
@@ -70,31 +70,31 @@ function onChangeOptions() {
     disableScale,
     activeColor,
     hoverColor,
-  } = form
+  } = form;
   const changeRuleColor = !(form.ruleColor
     && meta2d.store.data.ruleColor
-    && form.ruleColor.toLowerCase() === meta2d.store.data.ruleColor.toLowerCase())
+    && form.ruleColor.toLowerCase() === meta2d.store.data.ruleColor.toLowerCase());
   const changeGridColor = !(form.gridColor
     && meta2d.store.data.gridColor
-    && form.gridColor.toLowerCase() === meta2d.store.data.gridColor.toLowerCase())
+    && form.gridColor.toLowerCase() === meta2d.store.data.gridColor.toLowerCase());
   meta2d.setRule({
     rule,
     ruleColor: changeRuleColor ? ruleColor : undefined,
-  })
+  });
   meta2d.setOptions({
     disableScale,
     activeColor,
     hoverColor,
-  })
+  });
   meta2d.setGrid({
     grid,
     gridSize,
     gridColor: changeGridColor ? gridColor : undefined,
-  })
+  });
   meta2d.store.patchFlagsTop = true
-  ;(meta2d.store as any).patchFlagsBackground = true
-  meta2d.render()
-  updateDisableScale(isViewMounted)
+  ;(meta2d.store as any).patchFlagsBackground = true;
+  meta2d.render();
+  updateDisableScale(isViewMounted);
 }
 </script>
 

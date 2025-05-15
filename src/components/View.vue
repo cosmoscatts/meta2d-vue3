@@ -13,6 +13,7 @@ watch([width, height], ([w, h]) => {
 });
 
 onMounted(() => {
+  // eslint-disable-next-line no-new
   new Meta2d('meta2d', { ...getDefaultOptions(), disableScale: snapshotDisableScale.value });
   registerMeta2dPlugins();
   loadMeta2dData();

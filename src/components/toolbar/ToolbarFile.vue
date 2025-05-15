@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import FileSaver from 'file-saver';
-import dayjs from 'dayjs';
 import type { Meta2dData, Pen } from '@meta2d/core';
+import dayjs from 'dayjs';
+import FileSaver from 'file-saver';
 
 function newFile() {
   useConfirm({
@@ -108,8 +108,7 @@ function exportSvg() {
       '{{bkRect}}',
       `<rect x="0" y="0" width="100%" height="100%" fill="${meta2d.store.data.background}"></rect>`,
     );
-  }
-  else {
+  } else {
     mySerializedSVG = mySerializedSVG.replace('{{bk}}', '');
     mySerializedSVG = mySerializedSVG.replace('{{bkRect}}', '');
   }
@@ -168,8 +167,7 @@ function openImageFile() {
           },
         ];
         Message.success('上传成功，请点击图纸选择添加位置');
-      }
-      catch (e) {
+      } catch (e) {
         console.error(e);
       }
     };

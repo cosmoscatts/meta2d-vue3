@@ -19,7 +19,7 @@ declare global {
   const Modal: typeof import('./composables/arco')['Modal']
   const SelectionMode: typeof import('./composables/meta2d/selection')['SelectionMode']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
-  const addMeta2dShape: typeof import('./composables/meta2d/add-shape')['addMeta2dShape']
+  const addMeta2dShape: typeof import('./composables/meta2d/addShape')['addMeta2dShape']
   const allGraphicsDataKey: typeof import('./composables/meta2d/graphics')['allGraphicsDataKey']
   const allGraphicsDataNameMap: typeof import('./composables/meta2d/graphics')['allGraphicsDataNameMap']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
@@ -65,14 +65,14 @@ declare global {
   const getActivePinia: typeof import('pinia')['getActivePinia']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
-  const getExtraMeta2d: typeof import('./composables/meta2d/get-extra-meta2d')['getExtraMeta2d']
+  const getExtraMeta2d: typeof import('./composables/meta2d/getExtraMeta2d')['getExtraMeta2d']
   const getFileBase64: typeof import('./composables/file')['getFileBase64']
   const getFormArrowInfo: typeof import('./composables/meta2d/arrow')['getFormArrowInfo']
   const getLineTypeInfo: typeof import('./composables/meta2d/line')['getLineTypeInfo']
   const getRandomBool: typeof import('./composables/random')['getRandomBool']
   const getRandomInteger: typeof import('./composables/random')['getRandomInteger']
   const getRandomStr: typeof import('./composables/random')['getRandomStr']
-  const getSignalTypeValue: typeof import('./composables/meta2d/point/signal-type')['getSignalTypeValue']
+  const getSignalTypeValue: typeof import('./composables/meta2d/point/signalType')['getSignalTypeValue']
   const getToArrowInfo: typeof import('./composables/meta2d/arrow')['getToArrowInfo']
   const graphicsData: typeof import('./composables/meta2d/graphics')['graphicsData']
   const h: typeof import('vue')['h']
@@ -86,7 +86,7 @@ declare global {
   const isReactive: typeof import('vue')['isReactive']
   const isReadonly: typeof import('vue')['isReadonly']
   const isRef: typeof import('vue')['isRef']
-  const listenDarkModeChange: typeof import('./composables/meta2d/color-mode')['listenDarkModeChange']
+  const listenDarkModeChange: typeof import('./composables/meta2d/colorMode')['listenDarkModeChange']
   const loadMeta2dData: typeof import('./composables/meta2d/load')['loadMeta2dData']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const mapActions: typeof import('pinia')['mapActions']
@@ -143,11 +143,11 @@ declare global {
   const rgbaToHex: typeof import('./composables/color')['rgbaToHex']
   const setActivePinia: typeof import('pinia')['setActivePinia']
   const setMapStoreSuffix: typeof import('pinia')['setMapStoreSuffix']
-  const setPointData: typeof import('./composables/meta2d/set-data')['setPointData']
+  const setPointData: typeof import('./composables/meta2d/setPointData')['setPointData']
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
-  const signalOptions: typeof import('./composables/meta2d/point/signal-type')['signalOptions']
+  const signalOptions: typeof import('./composables/meta2d/point/signalType')['signalOptions']
   const storeToRefs: typeof import('pinia')['storeToRefs']
   const syncRef: typeof import('@vueuse/core')['syncRef']
   const syncRefs: typeof import('@vueuse/core')['syncRefs']
@@ -336,7 +336,7 @@ declare global {
   const useToggle: typeof import('@vueuse/core')['useToggle']
   const useTransition: typeof import('@vueuse/core')['useTransition']
   const useUrlSearchParams: typeof import('@vueuse/core')['useUrlSearchParams']
-  const useUserComponents: typeof import('./composables/meta2d/user-components')['useUserComponents']
+  const useUserComponents: typeof import('./composables/meta2d/userComponents')['useUserComponents']
   const useUserMedia: typeof import('@vueuse/core')['useUserMedia']
   const useVModel: typeof import('@vueuse/core')['useVModel']
   const useVModels: typeof import('@vueuse/core')['useVModels']
@@ -377,7 +377,7 @@ declare global {
   import('./composables/meta2d/selection')
   // @ts-ignore
   export type { PointData } from './composables/meta2d/set-data'
-  import('./composables/meta2d/set-data')
+  import('./composables/meta2d/setPointData')
   // @ts-ignore
   export type { ThemeColor } from './composables/theme'
   import('./composables/theme')
@@ -393,7 +393,7 @@ declare module 'vue' {
     readonly Message: UnwrapRef<typeof import('./composables/arco')['Message']>
     readonly Modal: UnwrapRef<typeof import('./composables/arco')['Modal']>
     readonly SelectionMode: UnwrapRef<typeof import('./composables/meta2d/selection')['SelectionMode']>
-    readonly addMeta2dShape: UnwrapRef<typeof import('./composables/meta2d/add-shape')['addMeta2dShape']>
+    readonly addMeta2dShape: UnwrapRef<typeof import('./composables/meta2d/addShape')['addMeta2dShape']>
     readonly allGraphicsDataKey: UnwrapRef<typeof import('./composables/meta2d/graphics')['allGraphicsDataKey']>
     readonly allGraphicsDataNameMap: UnwrapRef<typeof import('./composables/meta2d/graphics')['allGraphicsDataNameMap']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
@@ -435,14 +435,14 @@ declare module 'vue' {
     readonly fixedGraphicsDataKey: UnwrapRef<typeof import('./composables/meta2d/graphics')['fixedGraphicsDataKey']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
-    readonly getExtraMeta2d: UnwrapRef<typeof import('./composables/meta2d/get-extra-meta2d')['getExtraMeta2d']>
+    readonly getExtraMeta2d: UnwrapRef<typeof import('./composables/meta2d/getExtraMeta2d')['getExtraMeta2d']>
     readonly getFileBase64: UnwrapRef<typeof import('./composables/file')['getFileBase64']>
     readonly getFormArrowInfo: UnwrapRef<typeof import('./composables/meta2d/arrow')['getFormArrowInfo']>
     readonly getLineTypeInfo: UnwrapRef<typeof import('./composables/meta2d/line')['getLineTypeInfo']>
     readonly getRandomBool: UnwrapRef<typeof import('./composables/random')['getRandomBool']>
     readonly getRandomInteger: UnwrapRef<typeof import('./composables/random')['getRandomInteger']>
     readonly getRandomStr: UnwrapRef<typeof import('./composables/random')['getRandomStr']>
-    readonly getSignalTypeValue: UnwrapRef<typeof import('./composables/meta2d/point/signal-type')['getSignalTypeValue']>
+    readonly getSignalTypeValue: UnwrapRef<typeof import('./composables/meta2d/point/signalType')['getSignalTypeValue']>
     readonly getToArrowInfo: UnwrapRef<typeof import('./composables/meta2d/arrow')['getToArrowInfo']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
@@ -454,7 +454,7 @@ declare module 'vue' {
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
-    readonly listenDarkModeChange: UnwrapRef<typeof import('./composables/meta2d/color-mode')['listenDarkModeChange']>
+    readonly listenDarkModeChange: UnwrapRef<typeof import('./composables/meta2d/colorMode')['listenDarkModeChange']>
     readonly loadMeta2dData: UnwrapRef<typeof import('./composables/meta2d/load')['loadMeta2dData']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
@@ -498,11 +498,11 @@ declare module 'vue' {
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
-    readonly setPointData: UnwrapRef<typeof import('./composables/meta2d/set-data')['setPointData']>
+    readonly setPointData: UnwrapRef<typeof import('./composables/meta2d/setPointData')['setPointData']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
-    readonly signalOptions: UnwrapRef<typeof import('./composables/meta2d/point/signal-type')['signalOptions']>
+    readonly signalOptions: UnwrapRef<typeof import('./composables/meta2d/point/signalType')['signalOptions']>
     readonly syncRef: UnwrapRef<typeof import('@vueuse/core')['syncRef']>
     readonly syncRefs: UnwrapRef<typeof import('@vueuse/core')['syncRefs']>
     readonly templateRef: UnwrapRef<typeof import('@vueuse/core')['templateRef']>
@@ -680,7 +680,7 @@ declare module 'vue' {
     readonly useToggle: UnwrapRef<typeof import('@vueuse/core')['useToggle']>
     readonly useTransition: UnwrapRef<typeof import('@vueuse/core')['useTransition']>
     readonly useUrlSearchParams: UnwrapRef<typeof import('@vueuse/core')['useUrlSearchParams']>
-    readonly useUserComponents: UnwrapRef<typeof import('./composables/meta2d/user-components')['useUserComponents']>
+    readonly useUserComponents: UnwrapRef<typeof import('./composables/meta2d/userComponents')['useUserComponents']>
     readonly useUserMedia: UnwrapRef<typeof import('@vueuse/core')['useUserMedia']>
     readonly useVModel: UnwrapRef<typeof import('@vueuse/core')['useVModel']>
     readonly useVModels: UnwrapRef<typeof import('@vueuse/core')['useVModels']>

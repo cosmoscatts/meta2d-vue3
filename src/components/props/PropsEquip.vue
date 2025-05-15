@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Pen } from '@meta2d/core';
 import type { FileItem } from '@arco-design/web-vue/es/upload/interfaces';
+import type { Pen } from '@meta2d/core';
 import { equipOptions } from './mock';
 
 const { selections } = useMeta2dSelection();

@@ -53,7 +53,7 @@ const showReset = computed(() => !props.hideReset);
       disabled-alpha
       show-history
       show-preset
-      @change="(val) => $emit('change', val)"
+      @change="(val: string) => $emit('change', val)"
       @popup-visible-change="addHistory"
     >
       <a-tag :color="modelValue">

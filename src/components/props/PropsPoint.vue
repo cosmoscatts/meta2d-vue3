@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Pen } from '@meta2d/core';
-import { createPointOptions, equipOptions } from './mock';
 import { signalInfoMap } from '~/const';
+import { createPointOptions, equipOptions } from './mock';
 
 const { selections } = useMeta2dSelection();
 

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { s8 } from '@meta2d/core';
 import type { Pen } from '@meta2d/core';
 import type { WritableComputedRef } from 'vue';
-import { createPointOptions } from './mock';
+import { s8 } from '@meta2d/core';
 import { createBaseCombinePoint, signalInfoMap } from '~/const';
+import { createPointOptions } from './mock';
 
 const props = defineProps<{
   equipId: string

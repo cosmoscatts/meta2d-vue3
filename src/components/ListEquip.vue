@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { s8 } from '@meta2d/core';
 import type { FileItem } from '@arco-design/web-vue/es/upload/interfaces';
+import { s8 } from '@meta2d/core';
 import { getDefaultEquipInfo } from '~/const';
 
 const uploadEquipImages = ref<string[]>([]);

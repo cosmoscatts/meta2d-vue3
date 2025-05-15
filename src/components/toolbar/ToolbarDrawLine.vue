@@ -7,8 +7,7 @@ function drawLine() {
     meta2d.finishDrawLine();
     meta2d.drawLine();
     meta2d.store.options.disableAnchor = true;
-  }
-  else {
+  } else {
     isDrawLine.value = true;
     meta2d.drawLine(meta2d.store.options.drawingLineName);
     meta2d.store.options.disableAnchor = false;
